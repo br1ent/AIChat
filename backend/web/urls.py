@@ -1,6 +1,7 @@
 from django.urls import path, re_path
 
 from web.views.create.character.create import CreateCharacterView
+from web.views.create.character.get_list import GetListCharacterView
 from web.views.create.character.get_single import GetSingleView
 from web.views.create.character.remove import RemoveCharacterView
 from web.views.create.character.update import UpdateCharacterView
@@ -24,7 +25,9 @@ urlpatterns = [
     path("api/create/character/create/", CreateCharacterView.as_view(), name="create_character"),
     path("api/create/character/remove/", RemoveCharacterView.as_view(), name="remove_character"),
     path("api/create/character/update/", UpdateCharacterView.as_view(), name="update_character"),
-    path("api/create/character/get_single/", GetSingleView.as_view(), name="get_single" ),
+    path("api/create/character/get_single/", GetSingleView.as_view(), name="get_single"),
+
+    path("api/create/character/get_list/", GetListCharacterView.as_view(), name="get_list"),
 
     path("", index, name="index"),
     re_path(r'^(?!media/|static/|assets/).*$', index)
