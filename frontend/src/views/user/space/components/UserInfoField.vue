@@ -3,7 +3,7 @@ defineProps(["userProfile"])
 </script>
 
 <template>
-  <div class="flex items-center mt-12 gap-8">
+  <div class="flex items-center mt-12 gap-8" v-if="userProfile">
     <div class="avatar">
       <div class="w-44 rounded-full">
         <img :src="userProfile.photo" alt="">
