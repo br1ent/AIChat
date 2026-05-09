@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="navbar-end">
-          <router-link :to="{name: 'update-character-index', params: {character_id: 1}}" v-if="user.isLogin()" active-class="btn-active" class="btn btn-gosh text-base mr-6">
+          <router-link :to="{name: 'create-index'}" v-if="user.isLogin()" active-class="btn-active" class="btn btn-gosh text-base mr-6">
             <CreateIcon></CreateIcon>
             创作
           </router-link>
