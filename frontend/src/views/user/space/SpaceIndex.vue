@@ -12,6 +12,10 @@ const hasCharacters = ref(true);
 const sentinelRef = useTemplateRef("sentinel-ref");
 const route = useRoute();
 
+function removeCharacter(characterId) {
+  characters.value = characters.value.filter(c => c.id !== characterId)
+}
+
 function checkSentinelVisible() {  // 判断哨兵是否能被看到
   if (!sentinelRef.value) return false
 
@@ -37,7 +41,6 @@ async function loadCharacter() {
       newCharacters = data.characters
     }
   } catch (err) {
-    console.log(err);
   } finally {
     isLoading.value = false;
     if (newCharacters.length === 0) {
@@ -85,6 +88,7 @@ onUnmounted(() => {
         :key="character.id"
         :character="character"
         :canEdit="true"
+        @remove="removeCharacter"
       />
     </div>
     <div ref="sentinel-ref" class="h-2 mt-8 w-100 bg-red-500"></div>
