@@ -31,6 +31,7 @@ function onFileChange(e) {
 let croppie = null;
 async function openModal(photo) {
   modalRef.value.show();
+  await nextTick();
 
   if (!croppie) {
       croppie = new Croppie(croppieRef.value, {

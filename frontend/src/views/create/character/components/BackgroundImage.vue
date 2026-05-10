@@ -1,5 +1,5 @@
 <script setup>
-import {onBeforeUnmount, ref, useTemplateRef, watch} from "vue";
+import {nextTick, onBeforeUnmount, ref, useTemplateRef, watch} from "vue";
 import CameraIcon from "@/views/user/profile/components/icons/CameraIcon.vue";
 import Croppie from 'croppie'
 import 'croppie/croppie.css'
@@ -17,8 +17,9 @@ const croppieRef = useTemplateRef("croppie-ref");
 
 let croppie = null;
 
-async function onpenModal(photo) {
+async function openModal(photo) {
   modalRef.value.show();
+  await nextTick();
 
   if (!croppie) {
     croppie = new Croppie(croppieRef.value, {
@@ -52,7 +53,7 @@ function onFileChange(e) {
 
   const reader = new FileReader();
   reader.onload = () => {
-    onpenModal(reader.result);
+    openModal(reader.result);
   }
 
   reader.readAsDataURL(file);
