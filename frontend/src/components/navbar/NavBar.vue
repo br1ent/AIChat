@@ -10,13 +10,13 @@
           <div class="px-2 font-bold text-2xl">AIFriends</div>
         </div>
         <div class="navbar-center w-4/5 max-w-180 flex justify-center">
-          <div class="join w-4/5 flex justify-center">
-            <input class="input join-item rounded-l-full w-4/5" placeholder="搜索你感兴趣的内容" />
+          <form @submit.prevent="search" class="join w-4/5 flex justify-center">
+            <input class="input join-item rounded-l-full w-4/5" placeholder="搜索你感兴趣的内容" v-model="searchQuery"/>
             <button class="btn join-item rounded-r-full gap-1">
               <SearchIcon></SearchIcon>
               搜索
             </button>
-          </div>
+          </form>
         </div>
         <div class="navbar-end">
           <router-link :to="{name: 'create-index'}" v-if="user.isLogin()" active-class="btn-active" class="btn btn-gosh text-base mr-6">
@@ -72,8 +72,28 @@ import CreateIcon from "@/components/navbar/icons/CreateIcon.vue";
 import SearchIcon from "@/components/navbar/icons/SearchIcon.vue";
 import {useUserStore} from "@/stores/user.js";
 import UserMenu from "@/components/navbar/UserMenu.vue";
+import {ref, watch} from "vue";
+import {useRoute, useRouter} from "vue-router";
 
-const user = useUserStore()
+const user = useUserStore();
+const searchQuery = ref("");
+const router = useRouter();
+const route = useRoute();
+
+watch(() => route.query.q, newQ => {
+  searchQuery.value = newQ || '';
+})
+
+function search() {
+  router.push({
+    name: "homepage-index",
+    query: {
+      q: searchQuery.value.trim()
+    }
+  })
+}
+
+
 </script>
 
 <style scoped></style>
