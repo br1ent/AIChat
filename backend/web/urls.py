@@ -5,6 +5,7 @@ from web.views.create.character.get_list import GetListCharacterView
 from web.views.create.character.get_single import GetSingleView
 from web.views.create.character.remove import RemoveCharacterView
 from web.views.create.character.update import UpdateCharacterView
+from web.views.homepage.index import HomePageIndexView
 from web.views.index import index
 from web.views.user.account.get_user_info import GetUserInfoView
 from web.views.user.account.login import LoginView
@@ -26,8 +27,9 @@ urlpatterns = [
     path("api/create/character/remove/", RemoveCharacterView.as_view(), name="remove_character"),
     path("api/create/character/update/", UpdateCharacterView.as_view(), name="update_character"),
     path("api/create/character/get_single/", GetSingleView.as_view(), name="get_single"),
-
     path("api/create/character/get_list/", GetListCharacterView.as_view(), name="get_list"),
+
+    path("api/homepage/index/", HomePageIndexView.as_view(), name="homepage_index"),
 
     path("", index, name="index"),
     re_path(r'^(?!media/|static/|assets/).*$', index)
