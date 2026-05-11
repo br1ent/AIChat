@@ -10,7 +10,7 @@ class RemoveFriendView(APIView):
     def post(self, request):
         try:
             friend_id = request.data['friend_id']
-            Friend.objects.filter(id=friend_id, me__usre=request.user).delete()
+            Friend.objects.filter(id=friend_id, me__user=request.user).delete()
             return Response({
                 "result": "success",
             })

@@ -7,8 +7,8 @@ import api from "@/js/http/api.js";
 import ChatField from "@/components/character/chat_field/ChatField.vue";
 import {useRouter} from "vue-router";
 
-const props = defineProps(["character", "canEdit"])
-const emit = defineEmits(["remove"])
+const props = defineProps(["character", "canEdit", "canRemove", "friendId"]);
+const emit = defineEmits(["remove"]);
 const isHover = ref(false);
 const user = useUserStore();
 
@@ -32,7 +32,6 @@ async function openChatField() {
         chatFieldRef.value.showModal()
       }
     } catch (err) {
-      console.log(err);
     }
   }
 }
@@ -48,6 +47,18 @@ async function removeCharacter() {
   } catch (err) {
   }
 }
+
+async function removeFriend() {
+  try {
+    const res = await api.post("/api/friend/remove/", {
+     friend_id: props.friendId
+    })
+    if (res.data.result === "success") {
+      emit("remove", props.friendId);
+    }
+  } catch(err) {
+  }
+}
 </script>
 
 <template>
@@ -56,14 +67,22 @@ async function removeCharacter() {
       <div class="w-60 h-100 rounded-2xl relative">
         <img :src="character.background_image" alt="聊天背景图片" :class="{'scale-120': isHover}" class="transition-transform duration-300">
         <div class="absolute top-50 left-0 w-60 h-50 bg-linear-to-t from-black/40 to-transparent"></div>
-        <div v-if="canEdit && character.author.user_id === user.id" class="absolute right-0 top-50">
-          <RouterLink :to="{name: 'update-character-index', params: {character_id: character.id}}" class="btn btn-circle btn-ghost bg-transparent">
+
+        <div v-if="canEdit && character.author.user_id === user.id" class="absolute right-1 top-2">
+          <RouterLink @click.stop :to="{name: 'update-character-index', params: {character_id: character.id}}" class="btn btn-circle btn-ghost bg-transparent">
             <UpdateIcon />
           </RouterLink>
-          <button class="btn btn-circle btn-ghost bg-transparent" @click="removeCharacter">
+          <button class="btn btn-circle btn-ghost bg-transparent" @click.stop="removeCharacter">
             <RemoveIcon />
           </button>
         </div>
+
+        <div v-if="canRemove" class="absolute right-1 top-2">
+          <button class="btn btn-ghost btn-circle bg-transparent" @click.stop="removeFriend">
+            <RemoveIcon/>
+          </button>
+        </div>
+
         <div class="absolute top-54 left-4 avatar">
           <div class="w-16 rounded-full ring-3 ring-white">
             <img :src="character.photo" alt="角色头像">
