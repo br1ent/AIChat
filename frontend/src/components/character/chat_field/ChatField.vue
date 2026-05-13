@@ -8,6 +8,7 @@ const props = defineProps(["friend"])
 const modalRef = useTemplateRef("modal-ref");
 const inputRef = useTemplateRef('input-ref');
 const history = ref([]);
+const chatHistoryRef = useTemplateRef('chat-history-ref');
 
 async function showModal() {
   modalRef.value.showModal();
@@ -30,15 +31,16 @@ const modalStyle = computed(() => {
 
 function pushBackMessage(msg) {
   history.value.push(msg);
+  chatHistoryRef.value.scrollToBottom();
 }
 
 function addToLastMessage(delta) {
     if (typeof delta === 'object') {
-    // 创建新的AI消息占位
     history.value.push(delta);
+    chatHistoryRef.value.scrollToBottom();
   } else {
-    // 追加流式内容到最后一条消息
     history.value.at(-1).content += delta;
+    chatHistoryRef.value.scrollToBottom();
   }
 }
 
@@ -52,6 +54,7 @@ defineExpose({
     <div class="modal-box w-90 h-150" :style="modalStyle">
       <button class="btn btn-circle btn-sm btn-ghost bg-transparent float-end" @click="modalRef.close()">X</button>
       <ChatHistory
+          ref="chat-history-ref"
           v-if="friend"
           :history="history"
           :friendId="friend.id"
