@@ -7,6 +7,7 @@ import streamApi from "@/js/http/streamApi.js";
 const inputRef = useTemplateRef('input-ref');
 const message = ref("");
 const props = defineProps(["friendId"]);
+const emit = defineEmits(["pushBackMessage", "addToLastMessage"])
 let isProcessing = false;
 
 function focus() {
@@ -21,6 +22,9 @@ async function sendMessage() {
   if (!content) return;
   message.value = "";
 
+  emit("pushBackMessage", {role: 'user', content: content, id: crypto.randomUUID()}) // 添加用户信息
+  emit("addToLastMessage", {role: 'ai', content: "", id: crypto.randomUUID()})
+
   try {
     await streamApi('/api/friend/message/chat/', {
       body: {
@@ -31,7 +35,7 @@ async function sendMessage() {
         if (isDone) {
           isProcessing = false;
         } else if (data.content) {
-          console.log(data.content);
+          emit("addToLastMessage", data.content)
         }
       },
       onerror(err) {
