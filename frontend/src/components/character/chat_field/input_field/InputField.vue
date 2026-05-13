@@ -1,23 +1,70 @@
 <script setup>
 import SendIcon from "@/components/character/icons/SendIcon.vue";
 import MicIcon from "@/components/character/icons/MicIcon.vue";
+import {ref, useTemplateRef} from "vue";
+import streamApi from "@/js/http/streamApi.js";
+
+const inputRef = useTemplateRef('input-ref');
+const message = ref("");
+const props = defineProps(["friendId"]);
+let isProcessing = false;
+
+function focus() {
+  inputRef.value.focus();
+}
+
+async function sendMessage() {
+  if (isProcessing) return;
+  isProcessing = true;
+
+  const content = message.value.trim();
+  if (!content) return;
+  message.value = "";
+
+  try {
+    await streamApi('/api/friend/message/chat/', {
+      body: {
+        friend_id: props.friendId,
+        message: content
+      },
+      onmessage(data, isDone) {
+        if (isDone) {
+          isProcessing = false;
+        } else if (data.content) {
+          console.log(data.content);
+        }
+      },
+      onerror(err) {
+        isProcessing = false;
+      }
+    })
+  } catch (err) {
+    console.error(err);
+    isProcessing = false;
+  }
+}
+
+defineExpose({
+  focus
+})
 </script>
 
 <template>
-  <div class="absolute bottom-4 left-2 h-12 w-86 flex items-center">
+  <form @submit.prevent="sendMessage" class="absolute bottom-4 left-2 h-12 w-86 flex items-center">
     <input
+        ref="input-ref"
         type="text"
         class="input bg-black/30 backdrop-blur-2xl! text-white text-base w-full h-full rounded-2xl pr-20"
         placeholder="文本输入..."
+        v-model="message"
     >
-      <div class="flex justify-center items-center absolute right-2 w-8 h-8 cursor-pointer">
+      <div class="flex justify-center items-center absolute right-2 w-8 h-8 cursor-pointer" @click="sendMessage">
         <SendIcon/>
       </div>
       <div class="flex justify-center items-center absolute right-10 w-8 h-8 cursor-pointer">
         <MicIcon/>
       </div>
-  </div>
-
+  </form>
 </template>
 
 <style scoped>
