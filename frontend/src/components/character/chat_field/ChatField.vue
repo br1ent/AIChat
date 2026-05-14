@@ -44,6 +44,10 @@ function addToLastMessage(delta) {
   }
 }
 
+function pushFrontMessage(msg) {
+  history.value.unshift(msg);
+}
+
 defineExpose({
   showModal,
 })
@@ -59,6 +63,7 @@ defineExpose({
           :history="history"
           :friendId="friend.id"
           :character="friend.character"
+          @pushFrontMessage="pushFrontMessage"
       />
       <InputField
           ref="input-ref"
