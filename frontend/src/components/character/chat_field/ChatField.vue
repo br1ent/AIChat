@@ -13,6 +13,7 @@ const chatHistoryRef = useTemplateRef('chat-history-ref');
 async function showModal() {
   modalRef.value.showModal();
   await nextTick();
+  chatHistoryRef.value.scrollToBottom()
   inputRef.value.focus();
 }
 
