@@ -36,7 +36,6 @@ async function loadMessage() {
       newMessages = data.messages;
     }
   } catch (err) {
-    console.error(err);
   } finally {
     isLoading = false;
     if (newMessages.length === 0) {

@@ -43,7 +43,6 @@ async function sendMessage() {
       }
     })
   } catch (err) {
-    console.error(err);
     isProcessing = false;
   }
 }
