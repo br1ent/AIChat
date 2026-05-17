@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
+import mimetypes
 
+mimetypes.add_type("application/javascript", ".mjs", True)
 load_dotenv() # 自动加载环境变量
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
