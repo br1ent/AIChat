@@ -8,6 +8,7 @@ const username = ref("");
 const password = ref("");
 const confirmedPassword = ref("");
 const errorMessage = ref("");
+const successMessage = ref("");
 
 const user = useUserStore();
 const router = useRouter();
@@ -28,9 +29,12 @@ async function register() {
       });
       const data = res.data;
       if (data.result === "success") {
+        successMessage.value = "注册成功!";
         user.setAccessToken(data.access);
         user.setUserInfo(data);
-        await router.push({name: 'user-account-login-index'});
+        setTimeout(async () => {
+          await router.push({name: 'user-account-login-index'});
+        }, 1000);
       } else {
         errorMessage.value = data.result;
       }
@@ -55,15 +59,18 @@ async function register() {
       <label class="label">确认密码</label>
       <input type="password" class="input" placeholder="请确认密码..." v-model="confirmedPassword" />
 
-      <div class="text-sm text-red-500 mt-3" v-if="errorMessage">
+      <div class="text-sm text-red-500 mt-3 text-center" v-if="errorMessage">
         {{ errorMessage }}
+      </div>
+            <div class="text-sm text-green-500 mt-3 text-center" v-if="successMessage">
+        {{ successMessage }}
       </div>
 
       <button class="btn btn-accent mt-4">注册</button>
 
       <div class="text-center mt-2">
         <span class="text-base">已有账号? </span>
-        <router-link :to="{name: 'user-account-login-index'}" class="link link-primary">
+        <router-link :to="{name: 'user-account-login-index'}" class="link link-hover link-info">
           <span class="text-base">返回</span>
         </router-link>
       </div>

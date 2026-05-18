@@ -7,6 +7,7 @@ import {useRouter} from "vue-router";
 const username = ref("");
 const password = ref("");
 const errorMessage = ref("");
+const successMessage = ref("");
 
 const user = useUserStore();
 const router = useRouter();
@@ -25,9 +26,12 @@ async function login() {
       })
       const data = res.data;
       if (data.result === "success") {
+        successMessage.value = "登录成功!"
         user.setAccessToken(data.access);
         user.setUserInfo(data);
-        await router.push({name: 'homepage-index'})
+        setTimeout(async () => {
+          await router.push({name: 'homepage-index'});
+        },1000);
       } else {
         errorMessage.value = data.result
       }
@@ -49,20 +53,23 @@ async function login() {
       <label class="label">密码</label>
       <input type="password" class="input" placeholder="请输入密码..." v-model="password" />
 
-      <div class="text-sm text-red-500 mt-3" v-if="errorMessage">
+      <div class="text-sm text-red-500 mt-3 text-center" v-if="errorMessage">
         {{ errorMessage }}
+      </div>
+      <div class="text-sm text-green-500 mt-3 text-center" v-if="successMessage">
+        {{ successMessage }}
       </div>
 
       <button class="btn btn-accent mt-4">登录</button>
 
       <div class="text-center mt-2">
         <span class="text-base">还没有账号? </span>
-        <router-link :to="{name: 'user-account-register-index'}" class="link link-primary">
+        <router-link :to="{name: 'user-account-register-index'}" class="link link-hover link-info">
           <span class="text-base">立即注册</span>
         </router-link>
         <div>
           <span class="text-base">忘记密码了? </span>
-          <router-link :to="{name: 'user-account-reset_password-index'}" class="link link-primary">
+          <router-link :to="{name: 'user-account-reset_password-index'}" class="link link-hover link-info">
             <span class="text-base">重置密码</span>
           </router-link>
         </div>
