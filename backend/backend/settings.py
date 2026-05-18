@@ -125,6 +125,7 @@ USE_TZ = True
 
 # 设置static和media静态文件路径
 STATIC_URL = 'static/'
+
 if not DEBUG:
     STATIC_ROOT = BASE_DIR / 'static'  # 生产阶段使用
 else:
