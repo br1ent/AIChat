@@ -60,6 +60,12 @@ async function login() {
         <router-link :to="{name: 'user-account-register-index'}" class="link link-primary">
           <span class="text-base">立即注册</span>
         </router-link>
+        <div>
+          <span class="text-base">忘记密码了? </span>
+          <router-link :to="{name: 'user-account-reset_password-index'}" class="link link-primary">
+            <span class="text-base">重置密码</span>
+          </router-link>
+        </div>
       </div>
     </form>
   </div>

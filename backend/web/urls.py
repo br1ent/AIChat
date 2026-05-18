@@ -18,6 +18,7 @@ from web.views.user.account.login import LoginView
 from web.views.user.account.refresh_token import RefreshTokenView
 from web.views.user.account.register import RegisterView
 from web.views.user.account.logout import LogoutView
+from web.views.user.account.reset_password import ResetPasswordView
 from web.views.user.profile.update import UpdateProfileView
 
 urlpatterns = [
@@ -26,6 +27,7 @@ urlpatterns = [
     path("api/user/account/register/", RegisterView.as_view(), name="register"),
     path("api/user/account/refresh_token/", RefreshTokenView.as_view(), name="refresh_token"),
     path("api/user/account/get_user_info/", GetUserInfoView.as_view(), name="get_user_info"),
+    path("api/user/account/reset_password/", ResetPasswordView.as_view(), name="reset_password"),
 
     path("api/user/profile/update/", UpdateProfileView.as_view(), name="update_profile"),
 

@@ -9,6 +9,7 @@ import SpaceIndex from "@/views/user/space/SpaceIndex.vue";
 import ProfileIndex from "@/views/user/profile/ProfileIndex.vue";
 import {useUserStore} from "@/stores/user.js";
 import UpdateCharacter from "@/views/create/character/UpdateCharacter.vue";
+import ResetPasswordIndex from "@/views/user/account/ResetPasswordIndex.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,6 +66,14 @@ const router = createRouter({
       path: "/user/account/register/",
       name: "user-account-register-index",
       component: RegisterIndex,
+      meta: {
+        requireAuth: false
+      }
+    },
+    {
+      path: "/user/account/reset_password/",
+      name: "user-account-reset_password-index",
+      component: ResetPasswordIndex,
       meta: {
         requireAuth: false
       }
