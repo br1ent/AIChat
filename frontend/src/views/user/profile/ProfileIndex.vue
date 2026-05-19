@@ -60,8 +60,8 @@ async function update() {
 </script>
 
 <template>
-  <div class="flex justify-center">
-    <div class="card bg-base-200 shadow-sm w-120 mt-16">
+  <div class="flex justify-center px-4">
+    <div class="card bg-base-200 shadow-sm w-full max-w-120 mt-8 sm:mt-16">
       <div class="card-body">
         <h3 class="text-lg font-bold my-4">编辑资料</h3>
         <Photo ref="photo-ref" :photo="user.photo" />
@@ -72,7 +72,7 @@ async function update() {
         <div class="flex justify-center text-sm text-green-500" v-if="successMessage">{{ successMessage }} </div>
 
         <div class="flex justify-center">
-          <button @click="update" class="btn btn-accent w-60 mt-4">更新</button>
+          <button @click="update" class="btn btn-accent w-full max-w-60 mt-4">更新</button>
         </div>
       </div>
     </div>

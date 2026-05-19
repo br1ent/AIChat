@@ -34,9 +34,11 @@ async function openModal(photo) {
   await nextTick();
 
   if (!croppie) {
+    const boundarySize = window.innerWidth < 640 ? Math.min(window.innerWidth - 48, 280) : 300;
+    const viewportSize = window.innerWidth < 640 ? Math.min(180, boundarySize - 40) : 200;
       croppie = new Croppie(croppieRef.value, {
-      viewport: {width: 200, height: 200, type: 'square'}, // 裁剪框的长宽和样式
-      boundary: {width: 300, height: 300}, // 外边框的长宽
+      viewport: {width: viewportSize, height: viewportSize, type: 'square'}, // 裁剪框的长宽和样式
+      boundary: {width: boundarySize, height: boundarySize}, // 外边框的长宽
       enableOrientation: true,
       enforceBoundary: true,
     });
@@ -83,7 +85,7 @@ defineExpose({
   <input ref="file-input-ref" type="file" class="hidden" accept="image/*" @change="onFileChange">
 
   <dialog class="modal" ref="modal-ref">
-    <div class="modal-box transition-none">
+    <div class="modal-box transition-none max-w-[calc(100vw-1rem)]">
       <button class="btn btn-circle btn-sm btn-ghost float-end" @click="modalRef.close()">✕</button>
 
       <div ref="croppie-ref" class="flex flex-col justify-center my-4"></div>

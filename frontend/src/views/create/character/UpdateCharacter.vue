@@ -110,9 +110,9 @@ async function update() {
 </script>
 
 <template>
-  <div class="flex justify-center" v-if="character">
-    <div class="card">
-      <div class="card-body w-120 bg-base-200 shadow-sm mt-16">
+  <div class="flex justify-center px-4" v-if="character">
+    <div class="card w-full max-w-120">
+      <div class="card-body w-full bg-base-200 shadow-sm mt-8 sm:mt-16">
         <h3 class="text-lg font-bold my-4">修改角色</h3>
         <Photo ref="photo-ref" :photo="character.photo"/>
         <Name ref="name-ref" :name="character.name" />
@@ -124,7 +124,7 @@ async function update() {
         <p class="text-sm text-green-500 flex justify-center" v-if="successMessage">{{ successMessage }}</p>
 
         <div class="flex justify-center">
-          <button class="btn btn-accent w-60 mt-2" @click="update">修改</button>
+          <button class="btn btn-accent w-full max-w-60 mt-2" @click="update">修改</button>
         </div>
       </div>
     </div>

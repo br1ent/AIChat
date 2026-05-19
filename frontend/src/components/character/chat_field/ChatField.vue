@@ -60,7 +60,7 @@ defineExpose({
 
 <template>
   <dialog ref="modal-ref" class="modal" @close="handleClose">
-    <div class="modal-box w-90 h-150" :style="modalStyle">
+    <div class="modal-box w-[min(22.5rem,calc(100vw-1rem))] h-[min(37.5rem,calc(100dvh-1rem))]" :style="modalStyle">
       <button class="btn btn-circle btn-sm btn-ghost bg-transparent float-end" @click="modalRef.close()">X</button>
       <ChatHistory
           ref="chat-history-ref"

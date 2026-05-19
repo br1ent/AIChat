@@ -94,7 +94,7 @@ onUnmounted(() => {
 <template>
   <div class="flex flex-col items-center mb-12">
     <UserInfoField :userProfile="userProfile"/>
-    <div class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-9 mt-12 justify-items-center w-full px-9">
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(min(240px,100%),1fr))] gap-6 sm:gap-9 mt-8 sm:mt-12 justify-items-center w-full px-4 sm:px-9">
       <Character
         v-for="character in characters"
         :key="character.id"

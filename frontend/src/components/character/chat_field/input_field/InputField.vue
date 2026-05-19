@@ -159,7 +159,7 @@ defineExpose({
 </script>
 
 <template>
-  <form v-if="!showMic" @submit.prevent="sendMessage" class="absolute bottom-4 left-2 h-12 w-86 flex items-center">
+  <form v-if="!showMic" @submit.prevent="sendMessage" class="absolute bottom-4 left-2 right-2 h-12 flex items-center">
     <input
         ref="input-ref"
         type="text"

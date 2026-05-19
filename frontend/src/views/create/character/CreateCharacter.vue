@@ -95,9 +95,9 @@ async function create() {
 </script>
 
 <template>
-  <div class="flex justify-center">
-    <div class="card">
-      <div class="card-body w-120 bg-base-200 shadow-sm mt-16">
+  <div class="flex justify-center px-4">
+    <div class="card w-full max-w-120">
+      <div class="card-body w-full bg-base-200 shadow-sm mt-8 sm:mt-16">
         <h3 class="text-lg font-bold my-4">创建角色</h3>
         <Photo ref="photo-ref"/>
         <Name ref="name-ref" />
@@ -109,7 +109,7 @@ async function create() {
         <p class="text-sm text-green-500 flex justify-center" v-if="successMessage">{{ successMessage }}</p>
 
         <div class="flex justify-center">
-          <button class="btn btn-accent w-60 mt-2" @click="create">创建</button>
+          <button class="btn btn-accent w-full max-w-60 mt-2" @click="create">创建</button>
         </div>
       </div>
     </div>

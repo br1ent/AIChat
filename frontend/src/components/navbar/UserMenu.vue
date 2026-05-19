@@ -30,7 +30,7 @@ async function logout() {
 
 <template>
   <div class="dropdown dropdown-end">
-    <div tabindex="0" role="button" class="avatar btn btn-circle w-8 h-8 mr-6">
+    <div tabindex="0" role="button" class="avatar btn btn-circle w-8 h-8 mr-2 sm:mr-6">
       <div class="w-8 rounded-full">
         <img :src="user.photo" alt="用户头像">
       </div>

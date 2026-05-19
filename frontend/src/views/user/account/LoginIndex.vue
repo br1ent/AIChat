@@ -43,8 +43,8 @@ async function login() {
 </script>
 
 <template>
-  <div class="flex justify-center mt-30">
-    <form @submit.prevent="login" class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+  <div class="flex justify-center mt-16 px-4 sm:mt-30">
+    <form @submit.prevent="login" class="fieldset bg-base-200 border-base-300 rounded-box w-xs max-w-full border p-4">
       <legend class="fieldset-legend">登录你的账号</legend>
 
       <label class="label">用户名</label>

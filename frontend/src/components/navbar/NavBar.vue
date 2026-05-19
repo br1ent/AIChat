@@ -2,26 +2,26 @@
   <div class="drawer lg:drawer-open">
     <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
-      <nav class="navbar w-full bg-base-100 shadow-sm">
-        <div class="navbar-start">
+      <nav class="navbar w-full bg-base-100 shadow-sm flex-wrap gap-y-2">
+        <div class="navbar-start flex-1 min-w-0">
           <label for="my-drawer-4" aria-label="open sidebar" class="btn btn-square btn-ghost">
             <MenuIcon></MenuIcon>
           </label>
-          <div class="px-2 font-bold text-2xl">AIFriends</div>
+          <div class="px-2 font-bold text-xl sm:text-2xl truncate">AIFriends</div>
         </div>
-        <div class="navbar-center w-4/5 max-w-180 flex justify-center">
-          <form @submit.prevent="search" class="join w-4/5 flex justify-center">
-            <input class="input join-item rounded-l-full w-4/5" placeholder="搜索你感兴趣的内容" v-model="searchQuery"/>
-            <button class="btn join-item rounded-r-full gap-1">
+        <div class="navbar-center order-3 w-full max-w-none px-2 pb-2 flex justify-center lg:order-none lg:w-4/5 lg:max-w-180 lg:px-0 lg:pb-0">
+          <form @submit.prevent="search" class="join flex w-full justify-center lg:w-4/5">
+            <input class="input join-item rounded-l-full min-w-0 flex-1" placeholder="搜索你感兴趣的内容" v-model="searchQuery"/>
+            <button class="btn join-item rounded-r-full gap-1 shrink-0 px-3 sm:px-4">
               <SearchIcon></SearchIcon>
-              搜索
+              <span class="hidden sm:inline">搜索</span>
             </button>
           </form>
         </div>
-        <div class="navbar-end">
-          <router-link :to="{name: 'create-index'}" v-if="user.isLogin()" active-class="btn-active" class="btn btn-gosh text-base mr-6">
+        <div class="navbar-end w-auto">
+          <router-link :to="{name: 'create-index'}" v-if="user.isLogin()" active-class="btn-active" class="btn btn-gosh text-base mr-2 sm:mr-6">
             <CreateIcon></CreateIcon>
-            创作
+            <span class="hidden sm:inline">创作</span>
           </router-link>
           <router-link v-if="user.hasPullUserInfo && !user.isLogin()" :to="{name: 'user-account-login-index'}" active-class="btn-active" class="btn btn-ghost text-lg">
             登录
