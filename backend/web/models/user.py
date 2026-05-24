@@ -18,4 +18,4 @@ class UserProfile(models.Model):
     updated_time = models.DateTimeField(default=now)
 
     def __str__(self):
-        return f'{self.user.username} - {localtime(self.created_time).strftime('%Y-%m-%d %H:%M:%S')}'
+        return f"{self.user.username} - {localtime(self.created_time).strftime('%Y-%m-%d %H:%M:%S')}"
