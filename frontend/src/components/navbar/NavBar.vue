@@ -7,7 +7,7 @@
           <label for="my-drawer-4" aria-label="open sidebar" class="btn btn-square btn-ghost">
             <MenuIcon></MenuIcon>
           </label>
-          <div class="px-2 font-bold text-xl sm:text-2xl truncate">AIFriends</div>
+          <div class="px-2 font-bold text-xl sm:text-2xl truncate">AI Chat</div>
         </div>
         <div class="navbar-center order-3 w-full max-w-none px-2 pb-2 flex justify-center lg:order-none lg:w-4/5 lg:max-w-180 lg:px-0 lg:pb-0">
           <form @submit.prevent="search" class="join flex w-full justify-center lg:w-4/5">
