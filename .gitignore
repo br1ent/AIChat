@@ -9,4 +9,5 @@ static/
 backend/web/documents/data.txt
 backend/web/documents/lancedb_storage/
 frontend/public/vad/
+frontend/dist/
 deploy.sh

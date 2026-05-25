@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">AIFriends</string>
+    <string name="title_activity_main">AIFriends</string>
+    <string name="package_name">com.aifriends.app</string>
+    <string name="custom_url_scheme">com.aifriends.app</string>
+</resources>
