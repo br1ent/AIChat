@@ -2,6 +2,14 @@
   <NavBar>
     <RouterView/>
   </NavBar>
+  <footer class="footer sm:footer-horizontal bg-base-200 text-base-content p-10 flex justify-center">
+    <aside>
+      <div>
+        <span>ICP证：</span>
+        <a class="link-primary" href="https://beian.miit.gov.cn/" target="_blank">粤ICP备2026068482号-1</a>
+      </div>
+    </aside>
+  </footer>
 </template>
 
 <script setup>

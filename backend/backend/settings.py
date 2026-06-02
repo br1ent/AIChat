@@ -29,9 +29,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=$)7fmrvnpez%v+=#o4_@o*#du*ir(dsa!g!-hlc3l)#jfh91n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'app4397.acapp.acwing.com.cn']
+ALLOWED_HOSTS = ['127.0.0.1', 'xbrent.top', 'www.xbrent.top']
+INSTALLED_APPS = [
+    'django.contrib.admin',
+]
 
 
 # Application definition
@@ -138,7 +141,7 @@ else:
 if DEBUG:
     MEDIA_URL = 'http://127.0.0.1:8000/media/'
 else:
-    MEDIA_URL = 'https://app4397.acapp.acwing.com.cn/media/'
+    MEDIA_URL = 'https://xbrent.top/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
