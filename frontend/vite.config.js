@@ -14,9 +14,7 @@ export default defineConfig({
     tailwindcss(),
   ],
   build: {
-    outDir: process.env.APP_BUILD
-      ? path.resolve(__dirname, 'dist')
-      : path.resolve(__dirname, '../backend/static/frontend'),
+    outDir: path.resolve(__dirname, '../backend/static/frontend'),
     emptyOutDir: true,
   },
   resolve: {

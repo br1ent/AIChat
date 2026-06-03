@@ -10,7 +10,7 @@
         一个可以与AI角色聊天的网站
       </p>
       <p class="text-sm text-gray-500 mt-4">
-        © 2024–现在 AI Chat. All rights reserved. 版权所有
+        © 2026–现在 AI Chat. All rights reserved. 版权所有
       </p>
       <p class="text-sm text-gray-500 mt-1">
         ICP证：<a class="link link-hover text-gray-500" href="https://beian.miit.gov.cn/" target="_blank">粤ICP备2026068482号-1</a>

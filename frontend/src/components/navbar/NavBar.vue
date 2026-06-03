@@ -2,15 +2,15 @@
   <div class="drawer lg:drawer-open">
     <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
-      <nav class="navbar w-full bg-base-100 shadow-sm flex-wrap gap-y-2">
+      <nav class="navbar relative w-full bg-base-100 shadow-sm flex-wrap gap-y-2">
         <div class="navbar-start flex-1 min-w-0">
           <label for="my-drawer-4" aria-label="open sidebar" class="btn btn-square btn-ghost">
             <MenuIcon></MenuIcon>
           </label>
           <div class="px-2 font-bold text-xl sm:text-2xl truncate">AI Chat</div>
         </div>
-        <div class="navbar-center order-3 w-full max-w-none px-2 pb-2 flex justify-center lg:order-none lg:w-4/5 lg:max-w-180 lg:px-0 lg:pb-0">
-          <form @submit.prevent="search" class="join flex w-full justify-center lg:w-4/5">
+        <div class="navbar-center order-3 w-full max-w-none px-2 pb-2 flex justify-center lg:order-none lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:w-auto lg:px-0 lg:pb-0">
+          <form @submit.prevent="search" class="join flex w-full justify-center lg:w-96">
             <input class="input join-item rounded-l-full min-w-0 flex-1" placeholder="搜索你感兴趣的内容" v-model="searchQuery"/>
             <button class="btn join-item rounded-r-full gap-1 shrink-0 px-3 sm:px-4">
               <SearchIcon></SearchIcon>
