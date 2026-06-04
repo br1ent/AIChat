@@ -30,7 +30,7 @@ onMounted(async () => {
     const data = res.data;
     if (data.result === "success") {
       voices.value = data.voices;
-      curVoiceId.value = data.voices[0].id;
+      curVoiceId.value = data.voices[1].id;
     }
   } catch (err) {
     console.error(err);

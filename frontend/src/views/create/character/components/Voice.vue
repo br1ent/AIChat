@@ -21,7 +21,8 @@ defineExpose({
         v-for="voice in voices"
         :key="voice.id"
         :value="voice.id"
-      >{{ voice.name }}</option>
+      >{{ voice.name }}
+      </option>
     </select>
   </fieldset>
 </template>
