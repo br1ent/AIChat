@@ -32,10 +32,6 @@ SECRET_KEY = 'django-insecure-=$)7fmrvnpez%v+=#o4_@o*#du*ir(dsa!g!-hlc3l)#jfh91n
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'xbrent.top', 'www.xbrent.top']
-INSTALLED_APPS = [
-    'django.contrib.admin',
-]
-
 
 # Application definition
 
@@ -172,10 +168,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost",
     "https://localhost",
+    "https://xbrent.top",
+    "https://www.xbrent.top",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost",
     "https://localhost",
+    "https://xbrent.top",
+    "https://www.xbrent.top",
 ]

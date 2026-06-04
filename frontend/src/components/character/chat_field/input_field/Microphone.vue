@@ -36,6 +36,7 @@ const startRecording = async () => {
 
     await vadInstance.start();
   } catch (e) {
+    console.error('VAD初始化失败:', e);
   }
 };
 // 将 Float32 转 PCM 16-bit

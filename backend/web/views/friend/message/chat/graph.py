@@ -42,10 +42,11 @@ class ChatGraph:
         tools = [get_time, search_knowledge_base]
 
         llm = ChatOpenAI(
-            model='deepseek-v4-pro',
+            model='deepseek-v4-flash',
             openai_api_key=os.getenv('API_KEY'),
             openai_api_base=os.getenv('API_BASE'),
             streaming=True,
+            extra_body={"thinking": {"type": "enabled"}},
             model_kwargs={
                 "stream_options": {
                     "include_usage": True, # 输出token消耗数量

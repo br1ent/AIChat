@@ -16,6 +16,9 @@ const chatFieldRef = useTemplateRef("chat-field-ref");
 const friend = ref(null);
 const router = useRouter();
 
+const modalRef = useTemplateRef("modal-ref");
+const pendingRemove = ref(null);
+
 async function openChatField() {
   if (!user.isLogin()) {
     await router.push({
@@ -36,28 +39,45 @@ async function openChatField() {
   }
 }
 
-async function removeCharacter() {
-  try {
-    const res = await api.post("/api/create/character/remove/", {
-      character_id: props.character.id
-    })
-    if (res.data.result === "success") {
-      emit("remove", props.character.id);
-    }
-  } catch (err) {
-  }
+function removeCharacter() {
+  pendingRemove.value = "character";
+  modalRef.value.showModal();
 }
 
-async function removeFriend() {
-  try {
-    const res = await api.post("/api/friend/remove/", {
-     friend_id: props.friendId
-    })
-    if (res.data.result === "success") {
-      emit("remove", props.friendId);
+function removeFriend() {
+  pendingRemove.value = "friend";
+  modalRef.value.showModal();
+}
+
+function cancelRemove() {
+  pendingRemove.value = null;
+  modalRef.value.close();
+}
+
+async function confirmRemove() {
+  if (pendingRemove.value === "character") {
+    try {
+      const res = await api.post("/api/create/character/remove/", {
+        character_id: props.character.id
+      })
+      if (res.data.result === "success") {
+        emit("remove", props.character.id);
+      }
+    } catch (err) {
     }
-  } catch(err) {
+  } else if (pendingRemove.value === "friend") {
+    try {
+      const res = await api.post("/api/friend/remove/", {
+       friend_id: props.friendId
+      })
+      if (res.data.result === "success") {
+        emit("remove", props.friendId);
+      }
+    } catch(err) {
+    }
   }
+  modalRef.value.close();
+  pendingRemove.value = null;
 }
 </script>
 
@@ -107,6 +127,23 @@ async function removeFriend() {
       </div>
     </RouterLink>
   </div>
+  <dialog ref="modal-ref" class="modal" @close="cancelRemove">
+    <div class="modal-box">
+      <p class="text-lg font-medium mb-1">确认删除</p>
+      <p class="text-sm text-gray-400">
+        <template v-if="pendingRemove === 'character'">
+          确定要移除角色「{{ character.name }}」吗？此操作不可撤销。
+        </template>
+        <template v-else-if="pendingRemove === 'friend'">
+          确定要移除好友「{{ character.name }}」吗？
+        </template>
+      </p>
+      <div class="modal-action">
+        <button class="btn btn-neutral" @click="cancelRemove">取消</button>
+        <button class="btn btn-error" @click="confirmRemove">确认删除</button>
+      </div>
+    </div>
+  </dialog>
   <ChatField ref="chat-field-ref" :friend="friend"/>
 </template>
 
