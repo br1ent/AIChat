@@ -7,7 +7,6 @@ import {useRouter} from "vue-router";
 const username = ref("");
 const password = ref("");
 const errorMessage = ref("");
-const successMessage = ref("");
 
 const user = useUserStore();
 const router = useRouter();
@@ -26,12 +25,9 @@ async function login() {
       })
       const data = res.data;
       if (data.result === "success") {
-        successMessage.value = "登录成功!"
         user.setAccessToken(data.access);
         user.setUserInfo(data);
-        setTimeout(async () => {
-          await router.push({name: 'homepage-index'});
-        },1000);
+        await router.push({name: 'homepage-index'});
       } else {
         errorMessage.value = data.result
       }
@@ -56,10 +52,6 @@ async function login() {
       <div class="text-sm text-red-500 mt-3 text-center" v-if="errorMessage">
         {{ errorMessage }}
       </div>
-      <div class="text-sm text-green-500 mt-3 text-center" v-if="successMessage">
-        {{ successMessage }}
-      </div>
-
       <button class="btn btn-accent mt-4">登录</button>
 
       <div class="text-center mt-2">

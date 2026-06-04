@@ -8,7 +8,6 @@ const username = ref("");
 const password = ref("");
 const confirmedPassword = ref("");
 const errorMessage = ref("");
-const successMessage = ref("");
 
 const user = useUserStore();
 const router = useRouter();
@@ -29,12 +28,9 @@ async function register() {
       });
       const data = res.data;
       if (data.result === "success") {
-        successMessage.value = "注册成功!";
         user.setAccessToken(data.access);
         user.setUserInfo(data);
-        setTimeout(async () => {
-          await router.push({name: 'user-account-login-index'});
-        }, 1000);
+        await router.push({name: 'homepage-index'})
       } else {
         errorMessage.value = data.result;
       }
@@ -61,9 +57,6 @@ async function register() {
 
       <div class="text-sm text-red-500 mt-3 text-center" v-if="errorMessage">
         {{ errorMessage }}
-      </div>
-            <div class="text-sm text-green-500 mt-3 text-center" v-if="successMessage">
-        {{ successMessage }}
       </div>
 
       <button class="btn btn-accent mt-4">注册</button>
