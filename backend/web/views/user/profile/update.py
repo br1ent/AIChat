@@ -1,3 +1,4 @@
+import re
 
 from django.contrib.auth.models import User
 from django.utils.timezone import now
@@ -16,8 +17,8 @@ class UpdateProfileView(APIView):
             user = request.user
             user_profile = UserProfile.objects.get(user=user)
 
-            username = request.data.get('username').strip()
-            profile = request.data.get('profile').strip()[:500]
+            username = request.data.get('username', '').strip()
+            profile = request.data.get('profile', '').strip()[:100]
             photo = request.FILES.get('photo', None)
 
             if not username:
@@ -28,6 +29,16 @@ class UpdateProfileView(APIView):
             if not profile:
                 return Response({
                     "result": "个人简介不能为空!"
+                })
+
+            if not re.match(r'^[a-zA-Z0-9_]+$', username):
+                return Response({
+                    "result": "用户名只能包含英文字母、数字和下划线"
+                })
+
+            if len(username) < 3 or len(username) > 10:
+                return Response({
+                    "result": "用户名长度需要3-10个字符"
                 })
 
             if username != user.username and User.objects.filter(username=username).exists():

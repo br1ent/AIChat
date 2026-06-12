@@ -27,10 +27,10 @@ class Voice(models.Model):
 class Character(models.Model):
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     voice = models.ForeignKey(Voice, default=None, on_delete=models.CASCADE, blank=True, null=True)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=10)
     photo = models.ImageField(upload_to=photo_upload_to)
     background_image = models.ImageField(upload_to=background_image_upload_to)
-    profile = models.TextField(max_length=100000)
+    profile = models.TextField(max_length=500)
     create_time = models.DateTimeField(default=now)
     update_time = models.DateTimeField(default=now)
 

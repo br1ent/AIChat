@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -9,13 +11,24 @@ from web.models.user import UserProfile
 class RegisterView(APIView):
     def post(self, request):
         try:
-            username = request.data.get('username').strip()
-            password = request.data.get('password').strip()
+            username = request.data.get('username', '').strip()
+            password = request.data.get('password', '').strip()
 
             if not username or not password:
                 return Response({
                     "result": "用户名或密码不能为空!",
                 })
+
+            if not re.match(r'^[a-zA-Z0-9_]+$', username):
+                return Response({
+                    "result": "用户名只能包含英文字母、数字和下划线"
+                })
+
+            if len(username) < 3 or len(username) > 10:
+                return Response({
+                    "result": "用户名长度需要3-10个字符"
+                })
+
             if User.objects.filter(username=username).exists():
                 return Response({
                     "result": "用户名已存在!"
