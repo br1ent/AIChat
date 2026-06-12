@@ -12,6 +12,14 @@
       <p class="text-sm text-gray-500 mt-4">
         © 2026–现在 AI Chat. All rights reserved. 版权所有
       </p>
+      <div class="flex items-center justify-center gap-1 mt-1">
+        <img src="/static/beian.png" alt="公安备案" class="w-4 h-4">
+        <a class="link link-hover text-gray-500 text-sm"
+           href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44530202000174"
+           target="_blank">
+          粤公网安备44530202000174号
+        </a>
+      </div>
       <p class="text-sm text-gray-500 mt-1">
         ICP证：<a class="link link-hover text-gray-500" href="https://beian.miit.gov.cn/" target="_blank">粤ICP备2026068482号-1</a>
       </p>
