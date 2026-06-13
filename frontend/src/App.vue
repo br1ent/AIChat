@@ -13,7 +13,7 @@
         © 2026–现在 AI Chat. All rights reserved. 版权所有
       </p>
       <div class="flex items-center justify-center gap-1 mt-1">
-        <img src="/static/beian.png" alt="公安备案" class="w-4 h-4">
+        <img :src="beianImg" alt="公安备案" class="w-4 h-4">
         <a class="link link-hover text-gray-500 text-sm"
            href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44530202000174"
            target="_blank">
@@ -46,6 +46,7 @@ import {useUserStore} from "@/stores/user.js";
 import {useRoute, useRouter} from "vue-router";
 import EmailIcon from "@/icon/EmailIcon.vue";
 import GitHubIcon from "@/icon/GitHubIcon.vue";
+import beianImg from "@/assets/beian.png";
 
 
 const user = useUserStore();

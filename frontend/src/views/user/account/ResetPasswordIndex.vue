@@ -2,6 +2,7 @@
 import {ref} from "vue";
 import api from "@/js/http/api.js";
 import {useRouter} from "vue-router";
+import config, {TEXT_INPUT_DISABLED} from "@/js/config/config.js";
 
 const username = ref("");
 const password = ref("");
@@ -48,13 +49,13 @@ async function resetPassword() {
       <legend class="fieldset-legend">重置你的账号</legend>
 
       <label class="label">用户名</label>
-      <input type="text" class="input" placeholder="请输入用户名..." v-model="username" />
+      <input type="text" class="input" placeholder="请输入用户名..." v-model="username" :disabled="TEXT_INPUT_DISABLED" />
 
       <label class="label">密码</label>
-      <input type="password" class="input" placeholder="请输入密码..." v-model="password" />
+      <input type="password" class="input" placeholder="请输入密码..." v-model="password" :disabled="TEXT_INPUT_DISABLED" />
 
       <label class="label">确认密码</label>
-      <input type="password" class="input" placeholder="请确认密码..." v-model="confirmedPassword" />
+      <input type="password" class="input" placeholder="请确认密码..." v-model="confirmedPassword" :disabled="TEXT_INPUT_DISABLED" />
 
       <div class="text-sm text-red-500 mt-3 text-center" v-if="errorMessage">
         {{ errorMessage }}
