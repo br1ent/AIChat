@@ -1,7 +1,7 @@
 const platform = 'cloud' // vue, django, cloud
 
 // 一键禁止文本输入：true 禁用，false 启用
-export const TEXT_INPUT_DISABLED = true
+export const TEXT_INPUT_DISABLED = false
 
 const CONFIG_API = {
     HTTP_URL: '',
