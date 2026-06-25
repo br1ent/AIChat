@@ -9,7 +9,7 @@ from web.documents.utils.custom_embeddings import CustomEmbeddings
 def insert_documents():
     loader = TextLoader('./web/documents/data.txt', encoding='utf-8')
     documents = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=400, chunk_overlap=80)
     texts = text_splitter.split_documents(documents)
     print(f"已切分成{len(texts)}个片段")
 

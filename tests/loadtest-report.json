@@ -1,0 +1,389 @@
+{
+  "root_group": {
+    "name": "",
+    "path": "",
+    "id": "d41d8cd98f00b204e9800998ecf8427e",
+    "groups": [
+      {
+        "name": "REST API 测试",
+        "path": "::REST API 测试",
+        "id": "a63cb850f4f7e4a07f286e5a5714408f",
+        "groups": [
+          {
+            "name": "获取用户信息",
+            "path": "::REST API 测试::获取用户信息",
+            "id": "6289714dd4ff46c2b726d20a558b4baa",
+            "groups": [],
+            "checks": [
+                {
+                  "fails": 0,
+                  "name": "用户信息状态码 200",
+                  "path": "::REST API 测试::获取用户信息::用户信息状态码 200",
+                  "id": "c5762d73deb73225abb898280843c9f7",
+                  "passes": 16095
+                },
+                {
+                  "name": "响应时间 < 200ms",
+                  "path": "::REST API 测试::获取用户信息::响应时间 < 200ms",
+                  "id": "1171b13d1b7de20ab4b3806ab4ef3b0f",
+                  "passes": 16037,
+                  "fails": 58
+                }
+              ]
+          },
+          {
+            "name": "获取角色列表",
+            "path": "::REST API 测试::获取角色列表",
+            "id": "9b35280e188e219aea835e6aac6a69df",
+            "groups": [],
+            "checks": [
+                {
+                  "name": "角色列表状态码 200",
+                  "path": "::REST API 测试::获取角色列表::角色列表状态码 200",
+                  "id": "fd2a9660ef8155e70baed0398951961a",
+                  "passes": 16095,
+                  "fails": 0
+                },
+                {
+                  "name": "响应时间 < 200ms",
+                  "path": "::REST API 测试::获取角色列表::响应时间 < 200ms",
+                  "id": "9eecc94986f927a99f1108442d38b431",
+                  "passes": 15576,
+                  "fails": 519
+                }
+              ]
+          },
+          {
+            "path": "::REST API 测试::获取好友列表",
+            "id": "5a27ef026f9da9921f5c40353afbfe72",
+            "groups": [],
+            "checks": [
+                {
+                  "id": "e8893d63ca76a7be4532353a14c8e23c",
+                  "passes": 16095,
+                  "fails": 0,
+                  "name": "好友列表状态码 200",
+                  "path": "::REST API 测试::获取好友列表::好友列表状态码 200"
+                },
+                {
+                  "name": "响应时间 < 200ms",
+                  "path": "::REST API 测试::获取好友列表::响应时间 < 200ms",
+                  "id": "2a0f96111a45ea91d15812fdd15d7c19",
+                  "passes": 15419,
+                  "fails": 676
+                }
+              ],
+            "name": "获取好友列表"
+          }
+        ],
+        "checks": []
+      },
+      {
+        "name": "SSE 聊天测试",
+        "path": "::SSE 聊天测试",
+        "id": "d441586e589e01ff15ea0fa931adadd0",
+        "groups": [],
+        "checks": [
+            {
+              "fails": 0,
+              "name": "聊天状态码 200",
+              "path": "::SSE 聊天测试::聊天状态码 200",
+              "id": "7d7df67873bef7417b5a322c39d2422d",
+              "passes": 16095
+            },
+            {
+              "passes": 16095,
+              "fails": 0,
+              "name": "TTFB < 1s",
+              "path": "::SSE 聊天测试::TTFB < 1s",
+              "id": "3f1c94be863b8a1b3e62fab5d61437a6"
+            },
+            {
+              "fails": 16095,
+              "name": "包含 SSE 数据",
+              "path": "::SSE 聊天测试::包含 SSE 数据",
+              "id": "9c0d1af90686c3b7acf7c33cc67c5e60",
+              "passes": 0
+            }
+          ]
+      }
+    ],
+    "checks": []
+  },
+  "options": {
+    "summaryTrendStats": [
+      "avg",
+      "min",
+      "med",
+      "max",
+      "p(90)",
+      "p(95)"
+    ],
+    "summaryTimeUnit": "",
+    "noColor": false
+  },
+  "state": {
+    "isStdOutTTY": true,
+    "isStdErrTTY": true,
+    "testRunDurationMs": 271760.1005
+  },
+  "metrics": {
+    "rest_api_duration": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "p(90)": 157,
+        "p(95)": 180,
+        "avg": 77.1310759034897,
+        "min": 1,
+        "med": 74,
+        "max": 384
+      },
+      "thresholds": {
+        "p(95) < 200": {
+          "ok": true
+        }
+      }
+    },
+    "http_req_connecting": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "avg": 0.0008555434748842843,
+        "min": 0,
+        "med": 0,
+        "max": 2.2217,
+        "p(90)": 0,
+        "p(95)": 0
+      }
+    },
+    "iterations": {
+      "type": "counter",
+      "contains": "default",
+      "values": {
+        "count": 16095,
+        "rate": 59.22502961394069
+      }
+    },
+    "http_req_receiving": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "med": 4.379149999999999,
+        "max": 75.2789,
+        "p(90)": 12.709290000000001,
+        "p(95)": 16.324514999999995,
+        "avg": 5.793501901152485,
+        "min": 0
+      }
+    },
+    "data_received": {
+      "type": "counter",
+      "contains": "data",
+      "values": {
+        "rate": 90326.03003471438,
+        "count": 24547011
+      }
+    },
+    "http_req_duration{expected_response:true}": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "avg": 75.41667158367238,
+        "min": 1.0599,
+        "med": 72.98845,
+        "max": 684.7955,
+        "p(90)": 151.18587,
+        "p(95)": 174.024045
+      }
+    },
+    "http_req_tls_handshaking": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "avg": 0,
+        "min": 0,
+        "med": 0,
+        "max": 0,
+        "p(90)": 0,
+        "p(95)": 0
+      }
+    },
+    "http_req_sending": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "med": 0,
+        "max": 3.0781,
+        "p(90)": 0,
+        "p(95)": 0,
+        "avg": 0.0012047994781150008,
+        "min": 0
+      }
+    },
+    "vus": {
+      "contains": "default",
+      "values": {
+        "min": 0,
+        "max": 100,
+        "value": 4
+      },
+      "type": "gauge"
+    },
+    "http_req_failed": {
+      "type": "rate",
+      "contains": "default",
+      "values": {
+        "passes": 0,
+        "fails": 64382,
+        "rate": 0
+      }
+    },
+    "http_req_duration": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "med": 72.98845,
+        "max": 684.7955,
+        "p(90)": 151.18587,
+        "p(95)": 174.024045,
+        "avg": 75.41667158367238,
+        "min": 1.0599
+      },
+      "thresholds": {
+        "p(95) < 200": {
+          "ok": true
+        }
+      }
+    },
+    "login_duration": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "min": 0,
+        "med": 0,
+        "max": 0,
+        "p(90)": 0,
+        "p(95)": 0,
+        "avg": 0
+      },
+      "thresholds": {
+        "p(95) < 300": {
+          "ok": true
+        }
+      }
+    },
+    "vus_max": {
+      "type": "gauge",
+      "contains": "default",
+      "values": {
+        "value": 100,
+        "min": 100,
+        "max": 100
+      }
+    },
+    "iteration_duration": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "p(90)": 1397.64996,
+        "p(95)": 1432.7097299999998,
+        "avg": 1203.5169510593432,
+        "min": 912.9729,
+        "med": 1260.6041,
+        "max": 1762.9718
+      }
+    },
+    "chat_ttfb": {
+      "values": {
+        "med": 71,
+        "max": 264,
+        "p(90)": 133,
+        "p(95)": 151,
+        "avg": 70.34451693072383,
+        "min": 1
+      },
+      "thresholds": {
+        "p(95) < 1000": {
+          "ok": true
+        }
+      },
+      "type": "trend",
+      "contains": "time"
+    },
+    "data_sent": {
+      "type": "counter",
+      "contains": "data",
+      "values": {
+        "count": 26251269,
+        "rate": 96597.21552833322
+      }
+    },
+    "http_req_blocked": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "max": 3.0781,
+        "p(90)": 0,
+        "p(95)": 0,
+        "avg": 0.0012179211580876646,
+        "min": 0,
+        "med": 0
+      }
+    },
+    "http_req_waiting": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "med": 65.9941,
+        "max": 683.7871,
+        "p(90)": 142.97123000000005,
+        "p(95)": 166.01574999999997,
+        "avg": 69.62196488304154,
+        "min": 0.5338
+      }
+    },
+    "checks": {
+      "type": "rate",
+      "contains": "default",
+      "values": {
+        "rate": 0.8802388595492043,
+        "passes": 127507,
+        "fails": 17348
+      }
+    },
+    "group_duration": {
+      "type": "trend",
+      "contains": "time",
+      "values": {
+        "p(90)": 468.60394000000025,
+        "p(95)": 540.36371,
+        "avg": 146.84724432805152,
+        "min": 1.0599,
+        "med": 92.5416,
+        "max": 895.898
+      }
+    },
+    "chat_success_rate": {
+      "type": "rate",
+      "contains": "default",
+      "values": {
+        "rate": 1,
+        "passes": 16095,
+        "fails": 0
+      }
+    },
+    "http_reqs": {
+      "type": "counter",
+      "contains": "default",
+      "values": {
+        "rate": 236.90747788783656,
+        "count": 64382
+      }
+    }
+  },
+  "setup_data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgyNDAwMTM1LCJpYXQiOjE3ODIzOTI5MzUsImp0aSI6IjRhMTJhZjJhZWFlYzQxNmVhM2VmMjYxYzc2ODU2NDlhIiwidXNlcl9pZCI6IjEwIn0.XT_zkdkG3aXfP2Mejv4u8JGsi_bMcRF9F4henavDT0Q",
+    "userId": 10
+  }
+}

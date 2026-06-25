@@ -1,0 +1,9 @@
+# 测试依赖
+# 负载测试: 需要安装 k6 (https://k6.io/docs/get-started/installation/)
+# RAG 评估: 需要安装以下 Python 包
+
+lancedb>=0.4.0
+langchain>=0.1.0
+langchain-community>=0.0.10
+openai>=1.0.0
+python-dotenv>=1.0.0

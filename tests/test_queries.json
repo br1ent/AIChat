@@ -1,0 +1,77 @@
+[
+  {
+    "query": "Spring Boot 在项目中有什么作用？",
+    "relevant_keywords": ["Spring Boot", "自动配置", "内嵌服务器", "Starter"],
+    "expected_topics": ["后端技术栈", "Spring Boot"]
+  },
+  {
+    "query": "项目如何实现用户认证和授权？",
+    "relevant_keywords": ["JWT", "Spring Security", "Token", "认证", "授权"],
+    "expected_topics": ["用户认证", "JWT", "Spring Security"]
+  },
+  {
+    "query": "WebSocket 在这个项目里用来做什么？",
+    "relevant_keywords": ["WebSocket", "双向通信", "实时", "对战"],
+    "expected_topics": ["WebSocket", "实时通信"]
+  },
+  {
+    "query": "MyBatis-Plus 比原生 MyBatis 有什么优势？",
+    "relevant_keywords": ["MyBatis-Plus", "零配置", "CRUD", "分页", "代码生成器"],
+    "expected_topics": ["MyBatis-Plus", "数据库操作"]
+  },
+  {
+    "query": "前端为什么选择 Vue 3？",
+    "relevant_keywords": ["Vue 3", "Composition API", "Proxy", "响应式"],
+    "expected_topics": ["前端技术栈", "Vue 3"]
+  },
+  {
+    "query": "游戏循环是怎么实现的？",
+    "relevant_keywords": ["requestAnimationFrame", "游戏循环", "帧", "update"],
+    "expected_topics": ["游戏循环", "Canvas"]
+  },
+  {
+    "query": "微服务架构是怎么设计的？",
+    "relevant_keywords": ["微服务", "Backend", "Matching", "Bot Running", "服务拆分"],
+    "expected_topics": ["微服务架构", "架构设计"]
+  },
+  {
+    "query": "AI 沙箱系统怎么运行机器人代码？",
+    "relevant_keywords": ["AI", "沙箱", "Nashorn", "Bot Running", "代码隔离"],
+    "expected_topics": ["AI 沙箱", "机器人"]
+  },
+  {
+    "query": "Canvas 在项目中用来渲染什么？",
+    "relevant_keywords": ["Canvas", "渲染", "2D", "游戏", "GameMap"],
+    "expected_topics": ["Canvas", "游戏渲染"]
+  },
+  {
+    "query": "JWT Token 的有效期是多久？",
+    "relevant_keywords": ["JWT", "Token", "有效期", "过期"],
+    "expected_topics": ["JWT", "认证"]
+  },
+  {
+    "query": "Vite 相比 Webpack 有什么优势？",
+    "relevant_keywords": ["Vite", "热更新", "ESM", "极速启动"],
+    "expected_topics": ["Vite", "前端构建"]
+  },
+  {
+    "query": "项目的安全机制有哪些层次？",
+    "relevant_keywords": ["安全", "JWT", "BCrypt", "HTTPS", "IP 白名单"],
+    "expected_topics": ["安全机制", "认证"]
+  },
+  {
+    "query": "实时对战系统的技术实现是什么？",
+    "relevant_keywords": ["WebSocket", "锁机制", "回合制", "插值动画"],
+    "expected_topics": ["实时对战", "WebSocket"]
+  },
+  {
+    "query": "Lombok 在 Java 代码中怎么使用？",
+    "relevant_keywords": ["Lombok", "@Data", "@AllArgsConstructor", "@Slf4j"],
+    "expected_topics": ["Lombok", "Java"]
+  },
+  {
+    "query": "前后端分离架构有什么好处？",
+    "relevant_keywords": ["前后端分离", "多端支持", "并行开发", "RESTful API"],
+    "expected_topics": ["前后端分离", "架构设计"]
+  }
+]

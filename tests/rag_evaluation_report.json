@@ -1,0 +1,394 @@
+{
+  "summary": {
+    "total_queries": 15,
+    "recall_at_3": 0.43666666666666665,
+    "recall_at_5": 0.63,
+    "precision_at_3": 0.6444444444444444,
+    "mrr": 0.9333333333333333,
+    "hit_rate": 0.9333333333333333
+  },
+  "details": [
+    {
+      "query": "Spring Boot 在项目中有什么作用？",
+      "relevant_keywords": [
+        "Spring Boot",
+        "自动配置",
+        "内嵌服务器",
+        "Starter"
+      ],
+      "expected_topics": [
+        "后端技术栈",
+        "Spring Boot"
+      ],
+      "recall_at_3": 0.25,
+      "recall_at_5": 0.25,
+      "precision_at_3": 0.3333333333333333,
+      "mrr": 1.0,
+      "hit": true,
+      "retrieved_summaries": [
+        "---  ### 2. **Spring Boot 2.6.13** **说明**：快速应用开发框架，简化 Spring 应用初始搭建和开发过程  **亮点**： - 🚀 **自动配置**：根据 classpath 自动配置 Spring 应用 - 🚀 **内嵌服务器**：内置 Tomcat/Jetty，无需部署 WAR 文件 - 🚀 **Starter 依赖**：简化 Maven 配置 - 🚀",
+        "<dependencyManagement>         <dependencies>             <dependency>                 <groupId>org.springframework.boot</groupId>                 <artifactId>spring-boot-dependencies</artifactId>",
+        "**配置文件（application.yaml）**： ```yaml server:   port: 3000  spring:   datasource:     username: root     password: \"000000\"     url: jdbc:mysql://localhost:3306/kob?serverTimezone=Asia/Shanghai ```  ---",
+        "**亮点**： - 🎫 **无状态认证**：服务端不保存会话状态 - 🎫 **跨域支持**：适合微服务和前后端分离 - 🎫 **自包含**：Token 中包含用户信息 - 🎫 **防篡改**：使用签名保证安全性 - 🎫 **灵活过期**：可设置有效期  **项目应用**： ```java public class JwtUtil {     public static final long JWT",
+        "**前端使用**： ```javascript const socket = new WebSocket(socketUrl); socket.onopen = () => {     console.log(\"WebSocket 连接已打开\"); }; socket.onmessage = msg => {     const data = JSON.parse(msg.data);     /"
+      ]
+    },
+    {
+      "query": "项目如何实现用户认证和授权？",
+      "relevant_keywords": [
+        "JWT",
+        "Spring Security",
+        "Token",
+        "认证",
+        "授权"
+      ],
+      "expected_topics": [
+        "用户认证",
+        "JWT",
+        "Spring Security"
+      ],
+      "recall_at_3": 0.6,
+      "recall_at_5": 0.8,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "hit": true,
+      "retrieved_summaries": [
+        "---  ## 🔒 安全机制  ### 多层次安全防护  1. **认证层**：JWT Token 认证 2. **授权层**：基于角色的访问控制 3. **加密层**：BCrypt 密码加密 4. **传输层**：HTTPS（生产环境） 5. **接口层**：IP 白名单限制  ---  ## 📈 可扩展性  ### 水平扩展能力  - **服务拆分**：微服务架构便于水平扩展 - **负载均衡",
+        "**亮点**： - 🎫 **无状态认证**：服务端不保存会话状态 - 🎫 **跨域支持**：适合微服务和前后端分离 - 🎫 **自包含**：Token 中包含用户信息 - 🎫 **防篡改**：使用签名保证安全性 - 🎫 **灵活过期**：可设置有效期  **项目应用**： ```java public class JwtUtil {     public static final long JWT",
+        "@Override     protected void configure(HttpSecurity http) throws Exception {         http.csrf().disable()             .sessionManagement()             .sessionCreationPolicy(SessionCreationPolicy.STA",
+        "**配置文件（application.yaml）**： ```yaml server:   port: 3000  spring:   datasource:     username: root     password: \"000000\"     url: jdbc:mysql://localhost:3306/kob?serverTimezone=Asia/Shanghai ```  ---",
+        "**项目应用**： ```java @Configuration @EnableWebSecurity public class SecurityConfig extends WebSecurityConfigurerAdapter {      @Bean     public PasswordEncoder passwordEncoder() {         return new BCry"
+      ]
+    },
+    {
+      "query": "WebSocket 在这个项目里用来做什么？",
+      "relevant_keywords": [
+        "WebSocket",
+        "双向通信",
+        "实时",
+        "对战"
+      ],
+      "expected_topics": [
+        "WebSocket",
+        "实时通信"
+      ],
+      "recall_at_3": 0.5,
+      "recall_at_5": 0.75,
+      "precision_at_3": 0.6666666666666666,
+      "mrr": 1.0,
+      "hit": true,
+      "retrieved_summaries": [
+        "---  ### 7. **WebSocket** **说明**：全双工通信协议，实现服务器与客户端的实时通信  **亮点**： - 🔄 **双向通信**：服务器可主动推送数据 - 🔄 **低延迟**：建立持久连接，无需频繁握手 - 🔄 **轻量级**：头部开销小 - 🔄 **实时性**：适合游戏、聊天等场景 - 🔄 **标准协议**：RFC 6455，浏览器广泛支持  **项目应用**： ```",
+        "**前端使用**： ```javascript const socket = new WebSocket(socketUrl); socket.onopen = () => {     console.log(\"WebSocket 连接已打开\"); }; socket.onmessage = msg => {     const data = JSON.parse(msg.data);     /",
+        "---  ### 10. **FastJSON2** **说明**：阿里巴巴开源的高性能 JSON 库  **亮点**： - ⚡ **高性能**：序列化/反序列化速度快 - ⚡ **易用性**：API 简洁 - ⚡ **功能丰富**：支持 JSONPath、格式化等 - ⚡ **兼容性好**：支持多种数据类型  **项目应用**： ```java JSONObject respGame = new",
+        "---  ## 🔒 安全机制  ### 多层次安全防护  1. **认证层**：JWT Token 认证 2. **授权层**：基于角色的访问控制 3. **加密层**：BCrypt 密码加密 4. **传输层**：HTTPS（生产环境） 5. **接口层**：IP 白名单限制  ---  ## 📈 可扩展性  ### 水平扩展能力  - **服务拆分**：微服务架构便于水平扩展 - **负载均衡",
+        "---  ## 💡 技术选型原因  ### 为什么选择这些技术？  | 技术 | 选型原因 | |------|---------| | **Spring Boot** | 快速开发、生态成熟、微服务支持好 | | **Vue 3** | 轻量级、易上手、性能好、Composition API | | **WebSocket** | 实时性要求高，需要双向通信 | | **JWT** | 无状态认"
+      ]
+    },
+    {
+      "query": "MyBatis-Plus 比原生 MyBatis 有什么优势？",
+      "relevant_keywords": [
+        "MyBatis-Plus",
+        "零配置",
+        "CRUD",
+        "分页",
+        "代码生成器"
+      ],
+      "expected_topics": [
+        "MyBatis-Plus",
+        "数据库操作"
+      ],
+      "recall_at_3": 0.4,
+      "recall_at_5": 0.4,
+      "precision_at_3": 0.6666666666666666,
+      "mrr": 1.0,
+      "hit": true,
+      "retrieved_summaries": [
+        "public static Claims parseJWT(String jwt) throws Exception {         return Jwts.parserBuilder()                 .setSigningKey(secretKey)                 .build()                 .parseClaimsJws(jwt)",
+        "---  ### 技术栈版本选择考虑  1. **Java 8**：虽然版本较老，但稳定且团队熟悉，足够满足项目需求 2. **Spring Boot 2.6.13**：与 Java 8 兼容性好，稳定性经过验证 3. **Vue 3**：相比 Vue 2 性能更好，支持 Composition API 4. **MyBatis-Plus**：比原生 MyBatis 更简洁，减少 XML 配置",
+        "**项目应用**： ```java @Mapper public interface UserMapper extends BaseMapper<User> { }  // Service 层使用 QueryWrapper<User> queryWrapper = new QueryWrapper<>(); queryWrapper.eq(\"username\", username); List<U",
+        "**配置文件（application.yaml）**： ```yaml server:   port: 3000  spring:   datasource:     username: root     password: \"000000\"     url: jdbc:mysql://localhost:3306/kob?serverTimezone=Asia/Shanghai ```  ---",
+        "**实体类**： ```java @Data @AllArgsConstructor @NoArgsConstructor public class User {     @TableId(type = IdType.AUTO)     private Integer id;     private String username;     private String password;"
+      ]
+    },
+    {
+      "query": "前端为什么选择 Vue 3？",
+      "relevant_keywords": [
+        "Vue 3",
+        "Composition API",
+        "Proxy",
+        "响应式"
+      ],
+      "expected_topics": [
+        "前端技术栈",
+        "Vue 3"
+      ],
+      "recall_at_3": 0.5,
+      "recall_at_5": 0.75,
+      "precision_at_3": 0.6666666666666666,
+      "mrr": 1.0,
+      "hit": true,
+      "retrieved_summaries": [
+        "---  ## 🎨 前端技术栈  ### 1. **Vue 3** **说明**：渐进式 JavaScript 框架，用于构建用户界面  **亮点**： - 🎭 **Composition API**：更灵活的代码组织方式 - 🎭 **响应式系统**：基于 Proxy 的响应式追踪 - 🎭 **性能优化**：虚拟 DOM 优化，Tree-shaking 支持 - 🎭 **TypeScript 支持",
+        "---  ## 💡 技术选型原因  ### 为什么选择这些技术？  | 技术 | 选型原因 | |------|---------| | **Spring Boot** | 快速开发、生态成熟、微服务支持好 | | **Vue 3** | 轻量级、易上手、性能好、Composition API | | **WebSocket** | 实时性要求高，需要双向通信 | | **JWT** | 无状态认",
+        "<script setup> import { VAceEditor } from 'vue3-ace-editor'; import ace from 'ace-builds';  ace.config.set(     \"basePath\",     \"https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-noconflict/\" ) </scr",
+        "// 路由守卫 router.beforeEach((to, from, next) => {     if (to.meta.requestAuth && !store.state.user.is_login) {         next({ name: 'login' });     } else {         next();     } }); ```  ---  ### 3. **",
+        "onMounted(() => {     // 组件挂载时的逻辑 });  onUnmounted(() => {     // 组件卸载时的清理 }); </script> ```  ---  ### 2. **Vue Router 4** **说明**：Vue.js 官方的路由管理器  **亮点**： - 🛣️ **组件化路由**：路由与组件深度集成 - 🛣️ **嵌套路由**：支持多级路由"
+      ]
+    },
+    {
+      "query": "游戏循环是怎么实现的？",
+      "relevant_keywords": [
+        "requestAnimationFrame",
+        "游戏循环",
+        "帧",
+        "update"
+      ],
+      "expected_topics": [
+        "游戏循环",
+        "Canvas"
+      ],
+      "recall_at_3": 0.75,
+      "recall_at_5": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "hit": true,
+      "retrieved_summaries": [
+        "**亮点**： - ✅ **职责分离**：每个服务专注单一功能 - ✅ **独立部署**：服务可独立扩展和部署 - ✅ **故障隔离**：单个服务故障不影响全局 - ✅ **技术灵活**：不同服务可使用不同技术栈  ---  ### 2. **前后端分离**  **架构优势**： - 📱 **多端支持**：同一套 API 支持 Web、移动端 - 🔄 **并行开发**：前后端可同步开发 - 🚀 *",
+        "// 游戏主循环 let last_timestamp; const step = timestamp => {     for (let obj of AC_GAME_OBJECTS) {         if (!obj.has_called_start) {             obj.has_called_start = true;             obj.start();",
+        "### 1. **Java 8** **说明**：项目使用 Java 8 作为主要开发语言  **亮点**： - 🎯 **Lambda 表达式**：支持函数式编程，代码更简洁 - 🎯 **Stream API**：集合操作更高效 - 🎯 **Optional 类**：优雅处理空指针问题 - 🎯 **默认方法**：接口可以包含方法实现 - 🎯 **长期支持版本（LTS）**：稳定性好，生态成熟  *",
+        "requestAnimationFrame(step) ```  **亮点**： - 🎮 **基于帧的更新**：使用 `requestAnimationFrame` 实现流畅动画 - 🎮 **时间增量**：根据帧间隔计算移动距离，保证速度一致 - 🎮 **对象管理**：统一管理所有游戏对象的生命周期 - 🎮 **解耦设计**：每个对象独立更新，易于扩展  ---  ### 4. **实时对战系统*",
+        "---  ### 4. **实时对战系统**  **通信流程**： ``` 玩家 A          WebSocket 服务器          玩家 B   │                    │                    │   │─── 发送方向 ──────>│                    │   │                    │<─── 发送方"
+      ]
+    },
+    {
+      "query": "微服务架构是怎么设计的？",
+      "relevant_keywords": [
+        "微服务",
+        "Backend",
+        "Matching",
+        "Bot Running",
+        "服务拆分"
+      ],
+      "expected_topics": [
+        "微服务架构",
+        "架构设计"
+      ],
+      "recall_at_3": 0.6,
+      "recall_at_5": 0.8,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "hit": true,
+      "retrieved_summaries": [
+        "---  ## 🏗️ 架构设计亮点  ### 1. **微服务架构**",
+        "---  ## 🔒 安全机制  ### 多层次安全防护  1. **认证层**：JWT Token 认证 2. **授权层**：基于角色的访问控制 3. **加密层**：BCrypt 密码加密 4. **传输层**：HTTPS（生产环境） 5. **接口层**：IP 白名单限制  ---  ## 📈 可扩展性  ### 水平扩展能力  - **服务拆分**：微服务架构便于水平扩展 - **负载均衡",
+        "---  ### 5. **AI 沙箱系统**  **架构设计**： ``` ┌─────────────┐      ┌──────────────────┐      ┌──────────────┐ │  主游戏     │ ───> │  Bot Running     │ ───> │ Nashorn 引擎 │ │  服务端     │ <─── │  System          │",
+        "**亮点**： - ✅ **职责分离**：每个服务专注单一功能 - ✅ **独立部署**：服务可独立扩展和部署 - ✅ **故障隔离**：单个服务故障不影响全局 - ✅ **技术灵活**：不同服务可使用不同技术栈  ---  ### 2. **前后端分离**  **架构优势**： - 📱 **多端支持**：同一套 API 支持 Web、移动端 - 🔄 **并行开发**：前后端可同步开发 - 🚀 *",
+        "**亮点**： - 🎫 **无状态认证**：服务端不保存会话状态 - 🎫 **跨域支持**：适合微服务和前后端分离 - 🎫 **自包含**：Token 中包含用户信息 - 🎫 **防篡改**：使用签名保证安全性 - 🎫 **灵活过期**：可设置有效期  **项目应用**： ```java public class JwtUtil {     public static final long JWT"
+      ]
+    },
+    {
+      "query": "AI 沙箱系统怎么运行机器人代码？",
+      "relevant_keywords": [
+        "AI",
+        "沙箱",
+        "Nashorn",
+        "Bot Running",
+        "代码隔离"
+      ],
+      "expected_topics": [
+        "AI 沙箱",
+        "机器人"
+      ],
+      "recall_at_3": 0.4,
+      "recall_at_5": 0.6,
+      "precision_at_3": 0.6666666666666666,
+      "mrr": 1.0,
+      "hit": true,
+      "retrieved_summaries": [
+        "---  ### 5. **AI 沙箱系统**  **架构设计**： ``` ┌─────────────┐      ┌──────────────────┐      ┌──────────────┐ │  主游戏     │ ───> │  Bot Running     │ ───> │ Nashorn 引擎 │ │  服务端     │ <─── │  System          │",
+        "---  ### 4. **实时对战系统**  **通信流程**： ``` 玩家 A          WebSocket 服务器          玩家 B   │                    │                    │   │─── 发送方向 ──────>│                    │   │                    │<─── 发送方",
+        "**项目结构**： ```xml <project>     <modules>         <module>matchingsystem</module>         <module>backend</module>         <module>botrunningsystem</module>     </modules>",
+        "**实体类**： ```java @Data @AllArgsConstructor @NoArgsConstructor public class User {     @TableId(type = IdType.AUTO)     private Integer id;     private String username;     private String password;",
+        "文档保存在：`f:\\MyProject\\King Of Bot\\技术栈详解.md`  每个技术点都包含了： - ✅ 技术说明 - ✅ 核心亮点 - ✅ 项目中的实际应用代码 - ✅ 配置示例  \t这份文档可以作为项目的技术参考手册，也适合用来向他人介绍项目的技术架构！"
+      ]
+    },
+    {
+      "query": "Canvas 在项目中用来渲染什么？",
+      "relevant_keywords": [
+        "Canvas",
+        "渲染",
+        "2D",
+        "游戏",
+        "GameMap"
+      ],
+      "expected_topics": [
+        "Canvas",
+        "游戏渲染"
+      ],
+      "recall_at_3": 0.4,
+      "recall_at_5": 0.8,
+      "precision_at_3": 0.6666666666666666,
+      "mrr": 1.0,
+      "hit": true,
+      "retrieved_summaries": [
+        "<script setup> import 'bootstrap/dist/css/bootstrap.min.css' import 'bootstrap/dist/js/bootstrap' </script> ```  ---  ### 5. **Canvas** **说明**：HTML5 画布 API，用于绘制图形  **亮点**： - 🎮 **高性能渲染**：直接操作像素 - 🎮 **2",
+        "---  ## 💡 技术选型原因  ### 为什么选择这些技术？  | 技术 | 选型原因 | |------|---------| | **Spring Boot** | 快速开发、生态成熟、微服务支持好 | | **Vue 3** | 轻量级、易上手、性能好、Composition API | | **WebSocket** | 实时性要求高，需要双向通信 | | **JWT** | 无状态认",
+        "// 绘制眼睛     ctx.fillStyle = \"black\";     for (let i = 0; i < 2; i++) {         const eye_x = (this.cells[0].x + this.eye_dx[this.eye_direction][i] * 0.15) * L;         const eye_y = (this.cells[0].y +",
+        "---  ### 技术栈版本选择考虑  1. **Java 8**：虽然版本较老，但稳定且团队熟悉，足够满足项目需求 2. **Spring Boot 2.6.13**：与 Java 8 兼容性好，稳定性经过验证 3. **Vue 3**：相比 Vue 2 性能更好，支持 Composition API 4. **MyBatis-Plus**：比原生 MyBatis 更简洁，减少 XML 配置",
+        "**项目应用**： ```javascript // GameMap.js export class GameMap extends AcGameObject {     constructor(ctx, parent, store) {         super();         this.ctx = ctx;         this.rows = 15;         this.co"
+      ]
+    },
+    {
+      "query": "JWT Token 的有效期是多久？",
+      "relevant_keywords": [
+        "JWT",
+        "Token",
+        "有效期",
+        "过期"
+      ],
+      "expected_topics": [
+        "JWT",
+        "认证"
+      ],
+      "recall_at_3": 0.75,
+      "recall_at_5": 1.25,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "hit": true,
+      "retrieved_summaries": [
+        "**亮点**： - 🎫 **无状态认证**：服务端不保存会话状态 - 🎫 **跨域支持**：适合微服务和前后端分离 - 🎫 **自包含**：Token 中包含用户信息 - 🎫 **防篡改**：使用签名保证安全性 - 🎫 **灵活过期**：可设置有效期  **项目应用**： ```java public class JwtUtil {     public static final long JWT",
+        "context.commit(\"updateToken\", resp.token);                         data.success(resp);                     } else {                         data.error(resp);                     }                 },",
+        "$.ajax({                 url: \"http://127.0.0.1:3000/user/account/token\",                 type: \"post\",                 data: { username, password },                 success(resp) {",
+        "export default {     actions: {         login(context, data) {             $.ajax({                 url: \"http://127.0.0.1:3000/user/account/token\",                 type: \"post\",                 data:",
+        "@Override     protected void configure(HttpSecurity http) throws Exception {         http.csrf().disable()             .sessionManagement()             .sessionCreationPolicy(SessionCreationPolicy.STA"
+      ]
+    },
+    {
+      "query": "Vite 相比 Webpack 有什么优势？",
+      "relevant_keywords": [
+        "Vite",
+        "热更新",
+        "ESM",
+        "极速启动"
+      ],
+      "expected_topics": [
+        "Vite",
+        "前端构建"
+      ],
+      "recall_at_3": 0.25,
+      "recall_at_5": 0.25,
+      "precision_at_3": 0.3333333333333333,
+      "mrr": 1.0,
+      "hit": true,
+      "retrieved_summaries": [
+        "---  ### 6. **Vite** **说明**：新一代前端构建工具  **亮点**： - ⚡ **极速启动**：基于 ESM，无需打包即可启动 - ⚡ **热更新**：修改代码瞬间更新 - ⚡ **按需编译**：只编译当前需要的模块 - ⚡ **原生 ES 模块**：利用浏览器原生支持 - ⚡ **插件系统**：兼容 Rollup 插件  **项目配置（vite.config.js）**：",
+        "<script setup> import { VAceEditor } from 'vue3-ace-editor'; import ace from 'ace-builds';  ace.config.set(     \"basePath\",     \"https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-noconflict/\" ) </scr",
+        "onMounted(() => {     // 组件挂载时的逻辑 });  onUnmounted(() => {     // 组件卸载时的清理 }); </script> ```  ---  ### 2. **Vue Router 4** **说明**：Vue.js 官方的路由管理器  **亮点**： - 🛣️ **组件化路由**：路由与组件深度集成 - 🛣️ **嵌套路由**：支持多级路由",
+        "// 路由守卫 router.beforeEach((to, from, next) => {     if (to.meta.requestAuth && !store.state.user.is_login) {         next({ name: 'login' });     } else {         next();     } }); ```  ---  ### 3. **",
+        "---  ## 🎨 前端技术栈  ### 1. **Vue 3** **说明**：渐进式 JavaScript 框架，用于构建用户界面  **亮点**： - 🎭 **Composition API**：更灵活的代码组织方式 - 🎭 **响应式系统**：基于 Proxy 的响应式追踪 - 🎭 **性能优化**：虚拟 DOM 优化，Tree-shaking 支持 - 🎭 **TypeScript 支持"
+      ]
+    },
+    {
+      "query": "项目的安全机制有哪些层次？",
+      "relevant_keywords": [
+        "安全",
+        "JWT",
+        "BCrypt",
+        "HTTPS",
+        "IP 白名单"
+      ],
+      "expected_topics": [
+        "安全机制",
+        "认证"
+      ],
+      "recall_at_3": 0.4,
+      "recall_at_5": 0.8,
+      "precision_at_3": 0.6666666666666666,
+      "mrr": 1.0,
+      "hit": true,
+      "retrieved_summaries": [
+        "---  ## 🔒 安全机制  ### 多层次安全防护  1. **认证层**：JWT Token 认证 2. **授权层**：基于角色的访问控制 3. **加密层**：BCrypt 密码加密 4. **传输层**：HTTPS（生产环境） 5. **接口层**：IP 白名单限制  ---  ## 📈 可扩展性  ### 水平扩展能力  - **服务拆分**：微服务架构便于水平扩展 - **负载均衡",
+        "**项目应用**： ```java @Configuration @EnableWebSecurity public class SecurityConfig extends WebSecurityConfigurerAdapter {      @Bean     public PasswordEncoder passwordEncoder() {         return new BCry",
+        "---  ### 7. **WebSocket** **说明**：全双工通信协议，实现服务器与客户端的实时通信  **亮点**： - 🔄 **双向通信**：服务器可主动推送数据 - 🔄 **低延迟**：建立持久连接，无需频繁握手 - 🔄 **轻量级**：头部开销小 - 🔄 **实时性**：适合游戏、聊天等场景 - 🔄 **标准协议**：RFC 6455，浏览器广泛支持  **项目应用**： ```",
+        "---  ### 技术栈版本选择考虑  1. **Java 8**：虽然版本较老，但稳定且团队熟悉，足够满足项目需求 2. **Spring Boot 2.6.13**：与 Java 8 兼容性好，稳定性经过验证 3. **Vue 3**：相比 Vue 2 性能更好，支持 Composition API 4. **MyBatis-Plus**：比原生 MyBatis 更简洁，减少 XML 配置",
+        "**配置文件（application.yaml）**： ```yaml server:   port: 3000  spring:   datasource:     username: root     password: \"000000\"     url: jdbc:mysql://localhost:3306/kob?serverTimezone=Asia/Shanghai ```  ---"
+      ]
+    },
+    {
+      "query": "实时对战系统的技术实现是什么？",
+      "relevant_keywords": [
+        "WebSocket",
+        "锁机制",
+        "回合制",
+        "插值动画"
+      ],
+      "expected_topics": [
+        "实时对战",
+        "WebSocket"
+      ],
+      "recall_at_3": 0.25,
+      "recall_at_5": 0.5,
+      "precision_at_3": 0.3333333333333333,
+      "mrr": 1.0,
+      "hit": true,
+      "retrieved_summaries": [
+        "---  ### 4. **实时对战系统**  **通信流程**： ``` 玩家 A          WebSocket 服务器          玩家 B   │                    │                    │   │─── 发送方向 ──────>│                    │   │                    │<─── 发送方",
+        "requestAnimationFrame(step) ```  **亮点**： - 🎮 **基于帧的更新**：使用 `requestAnimationFrame` 实现流畅动画 - 🎮 **时间增量**：根据帧间隔计算移动距离，保证速度一致 - 🎮 **对象管理**：统一管理所有游戏对象的生命周期 - 🎮 **解耦设计**：每个对象独立更新，易于扩展  ---  ### 4. **实时对战系统*",
+        "---  ## 🔒 安全机制  ### 多层次安全防护  1. **认证层**：JWT Token 认证 2. **授权层**：基于角色的访问控制 3. **加密层**：BCrypt 密码加密 4. **传输层**：HTTPS（生产环境） 5. **接口层**：IP 白名单限制  ---  ## 📈 可扩展性  ### 水平扩展能力  - **服务拆分**：微服务架构便于水平扩展 - **负载均衡",
+        "**亮点**： - ✅ **职责分离**：每个服务专注单一功能 - ✅ **独立部署**：服务可独立扩展和部署 - ✅ **故障隔离**：单个服务故障不影响全局 - ✅ **技术灵活**：不同服务可使用不同技术栈  ---  ### 2. **前后端分离**  **架构优势**： - 📱 **多端支持**：同一套 API 支持 Web、移动端 - 🔄 **并行开发**：前后端可同步开发 - 🚀 *",
+        "---  ### 10. **FastJSON2** **说明**：阿里巴巴开源的高性能 JSON 库  **亮点**： - ⚡ **高性能**：序列化/反序列化速度快 - ⚡ **易用性**：API 简洁 - ⚡ **功能丰富**：支持 JSONPath、格式化等 - ⚡ **兼容性好**：支持多种数据类型  **项目应用**： ```java JSONObject respGame = new"
+      ]
+    },
+    {
+      "query": "Lombok 在 Java 代码中怎么使用？",
+      "relevant_keywords": [
+        "Lombok",
+        "@Data",
+        "@AllArgsConstructor",
+        "@Slf4j"
+      ],
+      "expected_topics": [
+        "Lombok",
+        "Java"
+      ],
+      "recall_at_3": 0.5,
+      "recall_at_5": 0.5,
+      "precision_at_3": 0.6666666666666666,
+      "mrr": 1.0,
+      "hit": true,
+      "retrieved_summaries": [
+        "---  ### 9. **Lombok** **说明**：通过注解简化 Java 代码的编写  **亮点**： - ✨ **减少样板代码**：自动生成 getter/setter/toString 等 - ✨ **注解驱动**：使用简单 - ✨ **编译时生成**：不影响运行时性能 - ✨ **提高可读性**：代码更简洁  **项目应用**： ```java @Data",
+        "<dependencyManagement>         <dependencies>             <dependency>                 <groupId>org.springframework.boot</groupId>                 <artifactId>spring-boot-dependencies</artifactId>",
+        "---  ### 7. **WebSocket** **说明**：全双工通信协议，实现服务器与客户端的实时通信  **亮点**： - 🔄 **双向通信**：服务器可主动推送数据 - 🔄 **低延迟**：建立持久连接，无需频繁握手 - 🔄 **轻量级**：头部开销小 - 🔄 **实时性**：适合游戏、聊天等场景 - 🔄 **标准协议**：RFC 6455，浏览器广泛支持  **项目应用**： ```",
+        "---  ### 10. **FastJSON2** **说明**：阿里巴巴开源的高性能 JSON 库  **亮点**： - ⚡ **高性能**：序列化/反序列化速度快 - ⚡ **易用性**：API 简洁 - ⚡ **功能丰富**：支持 JSONPath、格式化等 - ⚡ **兼容性好**：支持多种数据类型  **项目应用**： ```java JSONObject respGame = new",
+        "### 1. **Java 8** **说明**：项目使用 Java 8 作为主要开发语言  **亮点**： - 🎯 **Lambda 表达式**：支持函数式编程，代码更简洁 - 🎯 **Stream API**：集合操作更高效 - 🎯 **Optional 类**：优雅处理空指针问题 - 🎯 **默认方法**：接口可以包含方法实现 - 🎯 **长期支持版本（LTS）**：稳定性好，生态成熟  *"
+      ]
+    },
+    {
+      "query": "前后端分离架构有什么好处？",
+      "relevant_keywords": [
+        "前后端分离",
+        "多端支持",
+        "并行开发",
+        "RESTful API"
+      ],
+      "expected_topics": [
+        "前后端分离",
+        "架构设计"
+      ],
+      "recall_at_3": 0.0,
+      "recall_at_5": 0.0,
+      "precision_at_3": 0.0,
+      "mrr": 0.0,
+      "hit": false,
+      "retrieved_summaries": [
+        "---  ## 🎨 前端技术栈  ### 1. **Vue 3** **说明**：渐进式 JavaScript 框架，用于构建用户界面  **亮点**： - 🎭 **Composition API**：更灵活的代码组织方式 - 🎭 **响应式系统**：基于 Proxy 的响应式追踪 - 🎭 **性能优化**：虚拟 DOM 优化，Tree-shaking 支持 - 🎭 **TypeScript 支持",
+        "// 路由守卫 router.beforeEach((to, from, next) => {     if (to.meta.requestAuth && !store.state.user.is_login) {         next({ name: 'login' });     } else {         next();     } }); ```  ---  ### 3. **",
+        "---  ### 技术栈版本选择考虑  1. **Java 8**：虽然版本较老，但稳定且团队熟悉，足够满足项目需求 2. **Spring Boot 2.6.13**：与 Java 8 兼容性好，稳定性经过验证 3. **Vue 3**：相比 Vue 2 性能更好，支持 Composition API 4. **MyBatis-Plus**：比原生 MyBatis 更简洁，减少 XML 配置",
+        "**前端使用**： ```javascript const socket = new WebSocket(socketUrl); socket.onopen = () => {     console.log(\"WebSocket 连接已打开\"); }; socket.onmessage = msg => {     const data = JSON.parse(msg.data);     /",
+        "---  ### 4. **Bootstrap 5** **说明**：流行的前端 UI 框架  **亮点**： - 🎨 **响应式布局**：自适应各种屏幕尺寸 - 🎨 **丰富组件**：按钮、表单、表格、模态框等 - 🎨 **栅格系统**：12 列栅格布局 - 🎨 **无需 JavaScript**：核心功能纯 CSS 实现 - 🎨 **主题定制**：支持自定义主题"
+      ]
+    }
+  ]
+}
