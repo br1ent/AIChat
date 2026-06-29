@@ -10,7 +10,6 @@ from langchain_openai import ChatOpenAI
 from langgraph.constants import START, END
 from langgraph.graph import add_messages, StateGraph
 from langgraph.prebuilt import ToolNode
-from openai import embeddings
 
 from web.documents.utils.custom_embeddings import CustomEmbeddings
 
@@ -43,8 +42,8 @@ class ChatGraph:
 
         llm = ChatOpenAI(
             model='deepseek-v4-flash',
-            openai_api_key=os.getenv('API_KEY'),
-            openai_api_base=os.getenv('API_BASE'),
+            api_key=os.getenv('API_KEY'),
+            base_url=os.getenv('API_BASE'),
             streaming=True,
             extra_body={"thinking": {"type": "enabled"}},
             model_kwargs={

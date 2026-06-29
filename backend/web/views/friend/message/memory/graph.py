@@ -12,8 +12,8 @@ class MemoryGraph:
     def create_app():
         llm = ChatOpenAI(
             model="deepseek-v4-pro",
-            openai_api_key=os.getenv('API_KEY'),
-            openai_api_base=os.getenv('API_BASE'),
+            api_key=os.getenv('API_KEY'),
+            base_url=os.getenv('API_BASE'),
         )
 
         class AgentState(TypedDict):
