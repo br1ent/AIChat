@@ -33,10 +33,10 @@ def add_system_prompt(state, friend):
         prompt += sp.prompt
     prompt += f"\n【角色性格】\n{friend.character.profile}\n"
     prompt += f"【长期记忆】\n{friend.memory}\n"
-    return {"message": [SystemMessage(prompt)] + msgs}
+    return {"messages": [SystemMessage(prompt)] + msgs}
 
 def add_recent_messages(state, friend):
-    msgs = state["message"]
+    msgs = state["messages"]
     message_raw = list(Message.objects.filter(friend=friend).order_by('-id')[:10])
     message_raw.reverse()
     messages = []
@@ -207,4 +207,3 @@ class MessageChatView(APIView):
         )
         if Message.objects.filter(friend=friend).count() % 10 == 0:
             update_memory(friend)
-
