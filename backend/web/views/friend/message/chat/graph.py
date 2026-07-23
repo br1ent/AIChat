@@ -40,7 +40,7 @@ class ChatGraph:
                 return "知识库中没有文档内容"
 
             # 阶段 1：向量召回（多召回一些候选给 rerank 留空间）
-            recall_k = min(6, _vector_db._table.count_rows())
+            recall_k = min(10, _vector_db._table.count_rows())
             docs = _vector_db.similarity_search(query, k=recall_k)
 
             if not docs:

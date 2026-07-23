@@ -3,14 +3,21 @@ import os
 from openai import OpenAI
 
 
-RERANK_MODEL = os.getenv("RERANK_MODEL")
-RERANK_TOP_N = int(os.getenv("RERANK_TOP_N"))
-BASE_URL = os.getenv("BASE_URL")
+RERANK_MODEL = os.getenv("RERANK_MODEL", "qwen3-rerank")
+RERANK_TOP_N = int(os.getenv("RERANK_TOP_N", "3"))
+BASE_URL = os.getenv("BASE_URL", "")
 
-_client = OpenAI(
-    api_key=os.getenv("API_KEY"),
-    base_url=BASE_URL,
-)
+_client = None
+
+
+def _get_client():
+    global _client
+    if _client is None:
+        api_key = os.getenv("API_KEY")
+        if not BASE_URL or not api_key:
+            return None
+        _client = OpenAI(api_key=api_key, base_url=BASE_URL)
+    return _client
 
 
 def rerank(query: str, documents: list[str], top_n: int = RERANK_TOP_N) -> list[dict] | None:
@@ -21,8 +28,12 @@ def rerank(query: str, documents: list[str], top_n: int = RERANK_TOP_N) -> list[
     if not documents:
         return None
 
+    client = _get_client()
+    if client is None:
+        return None
+
     try:
-        resp = _client.post(
+        resp = client.post(
             "/reranks",
             body={
                 "model": RERANK_MODEL,
@@ -32,7 +43,6 @@ def rerank(query: str, documents: list[str], top_n: int = RERANK_TOP_N) -> list[
             },
             cast_to=object,
         )
-        # cast_to=object 实际返回 dict，使用 dict API
         results = resp["results"] if isinstance(resp, dict) and "results" in resp else []
         if results:
             return sorted(results, key=lambda r: r["relevance_score"], reverse=True)
