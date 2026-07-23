@@ -1,35 +1,37 @@
 """
-RAG 知识库检索准确率评估脚本
+RAG 知识库检索准确率评估脚本（带 Rerank 对比）
 
 使用方法：
     cd backend
     python -m tests.evaluate_rag
 
 评估指标：
-    - Recall@k: top-k 结果中包含相关文档的比例
+    - Recall@k: top-k 结果中包含相关文档的比例（基于关键词匹配）
     - Precision@k: top-k 结果中相关文档的占比
     - MRR (Mean Reciprocal Rank): 第一个相关文档的平均倒数排名
     - Hit Rate: 至少命中一个相关文档的查询比例
 """
-
 import json
 import os
 import sys
 from pathlib import Path
-from typing import List, Dict, Tuple
+from typing import List
 from dataclasses import dataclass, field
 
-# 添加 backend 目录到 Python 路径
-backend_dir = Path(__file__).parent.parent / "backend"
+# 确定路径（支持直接运行和 python -m 两种方式）
+try:
+    _tests_dir = Path(__file__).parent
+except NameError:
+    _tests_dir = Path.cwd().parent / "tests"
+
+backend_dir = _tests_dir.parent / "backend"
 sys.path.insert(0, str(backend_dir))
 os.chdir(str(backend_dir))
 
-# 加载 .env 文件
 try:
     from dotenv import load_dotenv
     load_dotenv(backend_dir / ".env")
 except ImportError:
-    # 如果没有 python-dotenv，手动加载
     env_file = backend_dir / ".env"
     if env_file.exists():
         with open(env_file, 'r') as f:
@@ -39,264 +41,215 @@ except ImportError:
                     key, value = line.split('=', 1)
                     os.environ[key.strip()] = value.strip().strip('"').strip("'")
 
-try:
-    import lancedb
-    from langchain_community.vectorstores import LanceDB
-    from langchain_core.documents import Document
-except ImportError as e:
-    print(f"请先安装依赖: pip install lancedb langchain-community")
-    print(f"错误信息: {e}")
-    sys.exit(1)
+import lancedb
+from langchain_community.vectorstores import LanceDB
 
-# 导入自定义 Embeddings
-try:
-    from web.documents.utils.custom_embeddings import CustomEmbeddings
-except ImportError:
-    print("无法导入 CustomEmbeddings，请检查路径")
-    sys.exit(1)
+from web.documents.utils.custom_embeddings import CustomEmbeddings
+from web.documents.utils.reranker import rerank
 
 
 @dataclass
-class RetrievalResult:
-    """单次检索结果"""
+class SingleResult:
     query: str
-    retrieved_docs: List[str]
-    relevant_keywords: List[str]
-    expected_topics: List[str]
-    recall_at_3: float = 0.0
-    recall_at_5: float = 0.0
-    precision_at_3: float = 0.0
-    mrr: float = 0.0
-    hit: bool = False
+    hit: bool
+    recall_at_k: float
+    precision_at_k: float
+    mrr: float
+    top_titles: List[str]
 
 
 @dataclass
-class EvaluationReport:
-    """评估报告"""
-    total_queries: int = 0
-    recall_at_3: float = 0.0
-    recall_at_5: float = 0.0
-    precision_at_3: float = 0.0
-    mrr: float = 0.0
-    hit_rate: float = 0.0
-    results: List[RetrievalResult] = field(default_factory=list)
-    details: List[Dict] = field(default_factory=list)
+class Report:
+    recall: float
+    precision: float
+    mrr: float
+    hit_rate: float
+    results: list
 
 
 class RAGEvaluator:
-    """RAG 检索评估器"""
-
-    def __init__(self, k: int = 5):
-        self.k = k
-        self.db = None
-        self.vector_db = None
-        self.embeddings = None
-
-    def initialize(self):
-        """初始化 LanceDB 连接"""
-        print("正在初始化 LanceDB 连接...")
-        self.db = lancedb.connect('./web/documents/lancedb_storage')
+    def __init__(self):
+        db = lancedb.connect('./web/documents/lancedb_storage')
         self.embeddings = CustomEmbeddings()
         self.vector_db = LanceDB(
-            connection=self.db,
+            connection=db,
             embedding=self.embeddings,
             table_name="my_knowledge_base",
         )
-        print("LanceDB 连接成功")
 
-    def retrieve(self, query: str) -> List[str]:
-        """执行检索，返回文档内容"""
-        docs = self.vector_db.similarity_search(query, k=self.k)
-        return [doc.page_content for doc in docs]
+    def _is_relevant(self, doc_text: str, keywords: list[str]) -> bool:
+        for kw in keywords:
+            if kw.lower() in doc_text.lower():
+                return True
+        return False
 
-    def calculate_recall(self, retrieved: List[str], relevant_keywords: List[str], k: int) -> float:
-        """计算 Recall@k: 检索结果中包含相关关键词的比例"""
-        if not relevant_keywords:
-            return 0.0
-
-        hits = 0
-        for doc in retrieved[:k]:
-            for keyword in relevant_keywords:
-                if keyword.lower() in doc.lower():
-                    hits += 1
-                    break  # 每个文档只计一次
-
-        return hits / len(relevant_keywords)
-
-    def calculate_precision(self, retrieved: List[str], relevant_keywords: List[str], k: int) -> float:
-        """计算 Precision@k: 检索结果中相关文档的占比"""
-        if k == 0:
-            return 0.0
-
-        hits = 0
-        for doc in retrieved[:k]:
-            for keyword in relevant_keywords:
-                if keyword.lower() in doc.lower():
-                    hits += 1
+    def _evaluate_retrieved(self, query: str, doc_texts: list[str],
+                            doc_metas: list[dict], relevant_keywords: list[str],
+                            k: int) -> SingleResult:
+        """对已检索的文档列表计算指标"""
+        # Recall@k: 至少命中的关键词去重计数 / 总关键词数
+        covered = set()
+        for kw in relevant_keywords:
+            for doc in doc_texts[:k]:
+                if kw.lower() in doc.lower():
+                    covered.add(kw)
                     break
+        recall = len(covered) / len(relevant_keywords) if relevant_keywords else 0
 
-        return hits / k
+        # Precision@k: 命中的文档数 / k
+        hits = 0
+        for doc in doc_texts[:k]:
+            if self._is_relevant(doc, relevant_keywords):
+                hits += 1
+        precision = hits / k if k > 0 else 0
 
-    def calculate_mrr(self, retrieved: List[str], relevant_keywords: List[str]) -> float:
-        """计算 MRR: 第一个相关文档的倒数排名"""
-        for i, doc in enumerate(retrieved):
-            for keyword in relevant_keywords:
-                if keyword.lower() in doc.lower():
-                    return 1.0 / (i + 1)
-        return 0.0
+        # MRR: 第一个命中文档的倒数排名
+        mrr = 0.0
+        for i, doc in enumerate(doc_texts):
+            if self._is_relevant(doc, relevant_keywords):
+                mrr = 1.0 / (i + 1)
+                break
 
-    def evaluate_single(self, query: str, relevant_keywords: List[str], 
-                        expected_topics: List[str]) -> RetrievalResult:
-        """评估单个查询"""
-        # 执行检索
-        retrieved = self.retrieve(query)
-
-        # 计算指标
-        result = RetrievalResult(
+        return SingleResult(
             query=query,
-            retrieved_docs=retrieved,
-            relevant_keywords=relevant_keywords,
-            expected_topics=expected_topics,
+            hit=recall > 0,
+            recall_at_k=recall,
+            precision_at_k=precision,
+            mrr=mrr,
+            top_titles=[m.get("document_title", "?") for m in doc_metas[:k]],
         )
 
-        result.recall_at_3 = self.calculate_recall(retrieved, relevant_keywords, 3)
-        result.recall_at_5 = self.calculate_recall(retrieved, relevant_keywords, 5)
-        result.precision_at_3 = self.calculate_precision(retrieved, relevant_keywords, 3)
-        result.mrr = self.calculate_mrr(retrieved, relevant_keywords)
-        result.hit = result.recall_at_3 > 0
+    def evaluate_vector_only(self, query: str, relevant_keywords: list[str],
+                              k: int = 3) -> SingleResult:
+        """纯向量检索（无 rerank）"""
+        docs = self.vector_db.similarity_search(query, k=k)
+        doc_texts = [d.page_content for d in docs]
+        doc_metas = [d.metadata for d in docs]
+        return self._evaluate_retrieved(query, doc_texts, doc_metas, relevant_keywords, k)
 
-        return result
+    def evaluate_with_rerank(self, query: str, relevant_keywords: list[str],
+                              k: int = 3) -> SingleResult:
+        """向量召回 + Rerank 重排序"""
+        # 向量召回 6 个候选
+        recall_k = min(6, self.vector_db._table.count_rows())
+        docs = self.vector_db.similarity_search(query, k=recall_k)
+        doc_texts = [d.page_content for d in docs]
+        doc_metas = [d.metadata for d in docs]
 
-    def evaluate(self, test_queries_file: str) -> EvaluationReport:
-        """评估所有测试查询"""
-        # 加载测试查询
+        # Rerank
+        ranked = rerank(query, doc_texts, top_n=k)
+        if ranked:
+            reordered_texts = []
+            reordered_metas = []
+            for item in ranked:
+                idx = item["index"]
+                if idx < len(doc_texts):
+                    reordered_texts.append(doc_texts[idx])
+                    reordered_metas.append(doc_metas[idx])
+        else:
+            reordered_texts = doc_texts[:k]
+            reordered_metas = doc_metas[:k]
+
+        return self._evaluate_retrieved(query, reordered_texts, reordered_metas, relevant_keywords, k)
+
+    def run(self, test_queries_file: str):
         with open(test_queries_file, 'r', encoding='utf-8') as f:
-            test_queries = json.load(f)
+            queries = json.load(f)
 
-        print(f"\n开始评估 {len(test_queries)} 个测试查询...\n")
-        print("=" * 80)
+        print(f"共 {len(queries)} 个测试查询\n")
 
-        report = EvaluationReport(total_queries=len(test_queries))
+        v_results = []
+        r_results = []
 
-        for i, item in enumerate(test_queries, 1):
-            query = item['query']
-            relevant_keywords = item['relevant_keywords']
-            expected_topics = item.get('expected_topics', [])
+        for i, item in enumerate(queries, 1):
+            q = item['query']
+            keywords = item['relevant_keywords']
 
-            print(f"\n[{i}/{len(test_queries)}] 查询: {query}")
-            print(f"  相关关键词: {', '.join(relevant_keywords)}")
+            v = self.evaluate_vector_only(q, keywords)
+            r = self.evaluate_with_rerank(q, keywords)
+            v_results.append(v)
+            r_results.append(r)
 
-            result = self.evaluate_single(query, relevant_keywords, expected_topics)
-            report.results.append(result)
+            # 每个查询的对比
+            v_mark = "Y" if v.hit else "N"
+            r_mark = "Y" if r.hit else "N"
+            print(f"[{i:2d}] {q}")
+            print(f"    keywords: {', '.join(keywords[:6])}{'...' if len(keywords) > 6 else ''}")
+            print(f"    vector:   Recall@3={v.recall_at_k:.0%}  MRR={v.mrr:.2f}  hit={v_mark}")
+            print(f"    +rerank:  Recall@3={r.recall_at_k:.0%}  MRR={r.mrr:.2f}  hit={r_mark}")
+            if v.hit != r.hit:
+                change = "UP" if r.hit else "DOWN"
+                print(f"    >>> hit change: {change}")
+            if v.top_titles != r.top_titles:
+                print(f"    order change: vector={v.top_titles}  rerank={r.top_titles}")
 
-            # 打印详细结果
-            print(f"  Recall@3: {result.recall_at_3:.2%}")
-            print(f"  Recall@5: {result.recall_at_5:.2%}")
-            print(f"  Precision@3: {result.precision_at_3:.2%}")
-            print(f"  MRR: {result.mrr:.2f}")
-            print(f"  命中: {'✓' if result.hit else '✗'}")
+        # 汇总
+        def summarize(name: str, results: list) -> Report:
+            n = len(results)
+            return Report(
+                recall=sum(r.recall_at_k for r in results) / n if n else 0,
+                precision=sum(r.precision_at_k for r in results) / n if n else 0,
+                mrr=sum(r.mrr for r in results) / n if n else 0,
+                hit_rate=sum(1 for r in results if r.hit) / n if n else 0,
+                results=[{
+                    'query': r.query,
+                    'recall_at_3': r.recall_at_k,
+                    'precision_at_3': r.precision_at_k,
+                    'mrr': r.mrr,
+                    'hit': r.hit,
+                } for r in results],
+            )
 
-            # 显示检索到的文档摘要
-            print(f"  检索结果:")
-            for j, doc in enumerate(result.retrieved_docs[:3], 1):
-                # 截取前 100 字符作为摘要
-                summary = doc[:100].replace('\n', ' ').strip()
-                print(f"    {j}. {summary}...")
+        vs = summarize("向量检索", v_results)
+        rs = summarize("向量+Rerank", r_results)
 
-            # 添加到详情列表
-            report.details.append({
-                'query': query,
-                'relevant_keywords': relevant_keywords,
-                'expected_topics': expected_topics,
-                'recall_at_3': result.recall_at_3,
-                'recall_at_5': result.recall_at_5,
-                'precision_at_3': result.precision_at_3,
-                'mrr': result.mrr,
-                'hit': result.hit,
-                'retrieved_summaries': [doc[:200].replace('\n', ' ').strip() 
-                                        for doc in result.retrieved_docs],
-            })
+        print("\n" + "=" * 70)
+        print("                       评估结果对比")
+        print("=" * 70)
+        print(f"{'指标':<20} {'向量检索':>12} {'向量+Rerank':>12} {'变化':>12}")
+        print("-" * 70)
+        for label, v_val, r_val in [
+            ("Recall@3", vs.recall, rs.recall),
+            ("Precision@3", vs.precision, rs.precision),
+            ("MRR", vs.mrr, rs.mrr),
+            ("Hit Rate", vs.hit_rate, rs.hit_rate),
+        ]:
+            delta = r_val - v_val
+            delta_str = f"{delta:+.1%}" if abs(delta) >= 0.001 else "—"
+            print(f"{label:<20} {v_val:>11.1%} {r_val:>11.1%} {delta_str:>12}")
 
-        # 计算总体指标
-        if report.total_queries > 0:
-            report.recall_at_3 = sum(r.recall_at_3 for r in report.results) / report.total_queries
-            report.recall_at_5 = sum(r.recall_at_5 for r in report.results) / report.total_queries
-            report.precision_at_3 = sum(r.precision_at_3 for r in report.results) / report.total_queries
-            report.mrr = sum(r.mrr for r in report.results) / report.total_queries
-            report.hit_rate = sum(1 for r in report.results if r.hit) / report.total_queries
+        print("-" * 70)
 
-        return report
-
-    def print_summary(self, report: EvaluationReport):
-        """打印评估摘要"""
-        print("\n" + "=" * 80)
-        print("                        评估结果摘要")
-        print("=" * 80)
-        print(f"\n总查询数: {report.total_queries}")
-        print(f"\n核心指标:")
-        print(f"  Recall@3:     {report.recall_at_3:.2%}")
-        print(f"  Recall@5:     {report.recall_at_5:.2%}")
-        print(f"  Precision@3:  {report.precision_at_3:.2%}")
-        print(f"  MRR:          {report.mrr:.2f}")
-        print(f"  Hit Rate:     {report.hit_rate:.2%}")
-
-        print(f"\n达标情况:")
-        print(f"  Recall@3 ≥ 85%:  {'✓ 达标' if report.recall_at_3 >= 0.85 else '✗ 未达标'}")
-        print(f"  MRR ≥ 0.8:       {'✓ 达标' if report.mrr >= 0.8 else '✗ 未达标'}")
-        print(f"  Hit Rate ≥ 90%:  {'✓ 达标' if report.hit_rate >= 0.9 else '✗ 未达标'}")
-
-        print("\n" + "=" * 80)
-
-
-def main():
-    """主函数"""
-    # 切换到 backend 目录
-    backend_dir = Path(__file__).parent.parent / "backend"
-    os.chdir(str(backend_dir))
-
-    # 测试查询文件路径
-    test_queries_file = Path(__file__).parent / "test_queries.json"
-
-    if not test_queries_file.exists():
-        print(f"错误: 测试查询文件不存在: {test_queries_file}")
-        sys.exit(1)
-
-    # 创建评估器
-    evaluator = RAGEvaluator(k=5)
-
-    try:
-        # 初始化
-        evaluator.initialize()
-
-        # 执行评估
-        report = evaluator.evaluate(str(test_queries_file))
-
-        # 打印摘要
-        evaluator.print_summary(report)
-
-        # 保存详细报告
-        report_file = Path(__file__).parent / "rag_evaluation_report.json"
+        # 保存报告
+        report_file = _tests_dir / "rag_evaluation_report.json"
         with open(report_file, 'w', encoding='utf-8') as f:
             json.dump({
-                'summary': {
-                    'total_queries': report.total_queries,
-                    'recall_at_3': report.recall_at_3,
-                    'recall_at_5': report.recall_at_5,
-                    'precision_at_3': report.precision_at_3,
-                    'mrr': report.mrr,
-                    'hit_rate': report.hit_rate,
+                "vector_only": {
+                    "recall_at_3": vs.recall,
+                    "precision_at_3": vs.precision,
+                    "mrr": vs.mrr,
+                    "hit_rate": vs.hit_rate,
                 },
-                'details': report.details,
+                "vector_plus_rerank": {
+                    "recall_at_3": rs.recall,
+                    "precision_at_3": rs.precision,
+                    "mrr": rs.mrr,
+                    "hit_rate": rs.hit_rate,
+                },
+                "details": {
+                    "vector_only": vs.results,
+                    "vector_plus_rerank": rs.results,
+                },
             }, f, ensure_ascii=False, indent=2)
 
-        print(f"\n详细报告已保存至: {report_file}")
-
-    except Exception as e:
-        print(f"评估过程中出现错误: {e}")
-        import traceback
-        traceback.print_exc()
-        sys.exit(1)
+        print(f"\n报告已保存: {report_file}")
 
 
 if __name__ == "__main__":
-    main()
+    test_file = _tests_dir / "test_queries.json"
+    if not test_file.exists():
+        print(f"测试文件不存在: {test_file}")
+        sys.exit(1)
+
+    evaluator = RAGEvaluator()
+    evaluator.run(str(test_file))

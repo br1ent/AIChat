@@ -12,6 +12,17 @@ from langgraph.graph import add_messages, StateGraph
 from langgraph.prebuilt import ToolNode
 
 from web.documents.utils.custom_embeddings import CustomEmbeddings
+from web.documents.utils.reranker import rerank
+
+
+# 模块级复用：避免每次 tool 调用都重新初始化连接
+_db = lancedb.connect('./web/documents/lancedb_storage')
+_embeddings = CustomEmbeddings()
+_vector_db = LanceDB(
+    connection=_db,
+    embedding=_embeddings,
+    table_name="my_knowledge_base",
+)
 
 
 class ChatGraph:
@@ -24,18 +35,39 @@ class ChatGraph:
 
         @tool
         def search_knowledge_base(query: str) -> str:
-            """当用户查询知识库相关问题的时候,调用此函数。输入为要查询的问题,输出为查询结果"""
-            db = lancedb.connect('./web/documents/lancedb_storage')
-            embeddings = CustomEmbeddings()
-            vector_db = LanceDB(
-                connection=db,
-                embedding=embeddings,
-                table_name="my_knowledge_base",
-            )
+            """当用户查询知识库相关问题的时候,调用此函数。输入为要查询的问题,输出为查询结果。包含向量召回+重排序以提升精度。"""
+            if _vector_db._table.count_rows() == 0:
+                return "知识库中没有文档内容"
 
-            docs = vector_db.similarity_search(query, k=3)
-            context = '\n\n'.join([f'内容片段{i + 1}\n{doc.page_content}' for i, doc in enumerate(docs)])
-            return f'从知识库中找到以下相关信息：\n\n{context}\n'
+            # 阶段 1：向量召回（多召回一些候选给 rerank 留空间）
+            recall_k = min(6, _vector_db._table.count_rows())
+            docs = _vector_db.similarity_search(query, k=recall_k)
+
+            if not docs:
+                return "未找到相关内容"
+
+            doc_texts = [doc.page_content for doc in docs]
+            doc_metas = [doc.metadata for doc in docs]
+
+            # 阶段 2：Rerank 重排序
+            reranked = rerank(query, doc_texts, top_n=3)
+            if reranked:
+                # rerank 成功，按要求排序
+                lines = []
+                for i, item in enumerate(reranked, 1):
+                    idx = item.get("index", i - 1)
+                    if idx < len(docs):
+                        title = doc_metas[idx].get("document_title", "未知文档")
+                        content = doc_texts[idx]
+                        lines.append(f"[来源 {i}] 文档：{title}\n{content[:800]}")
+                return "从知识库中找到以下相关信息：\n\n" + "\n\n".join(lines)
+            else:
+                # fallback：rerank 不可用，使用原始向量距离排序
+                lines = []
+                for i, doc in enumerate(docs[:3], 1):
+                    title = doc.metadata.get("document_title", "未知文档")
+                    lines.append(f"[来源 {i}] 文档：{title}\n{doc.page_content[:800]}")
+                return "从知识库中找到以下相关信息：\n\n" + "\n\n".join(lines)
 
 
         tools = [get_time, search_knowledge_base]

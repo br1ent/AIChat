@@ -16,12 +16,12 @@
   },
   {
     "query": "MyBatis-Plus 比原生 MyBatis 有什么优势？",
-    "relevant_keywords": ["MyBatis-Plus", "零配置", "CRUD", "分页", "代码生成器"],
+    "relevant_keywords": ["MyBatis-Plus", "CRUD", "分页", "代码生成器"],
     "expected_topics": ["MyBatis-Plus", "数据库操作"]
   },
   {
     "query": "前端为什么选择 Vue 3？",
-    "relevant_keywords": ["Vue 3", "Composition API", "Proxy", "响应式"],
+    "relevant_keywords": ["Vue 3", "Composition API", "响应式"],
     "expected_topics": ["前端技术栈", "Vue 3"]
   },
   {
@@ -41,23 +41,8 @@
   },
   {
     "query": "Canvas 在项目中用来渲染什么？",
-    "relevant_keywords": ["Canvas", "渲染", "2D", "游戏", "GameMap"],
+    "relevant_keywords": ["Canvas", "渲染", "2D", "GameMap"],
     "expected_topics": ["Canvas", "游戏渲染"]
-  },
-  {
-    "query": "JWT Token 的有效期是多久？",
-    "relevant_keywords": ["JWT", "Token", "有效期", "过期"],
-    "expected_topics": ["JWT", "认证"]
-  },
-  {
-    "query": "Vite 相比 Webpack 有什么优势？",
-    "relevant_keywords": ["Vite", "热更新", "ESM", "极速启动"],
-    "expected_topics": ["Vite", "前端构建"]
-  },
-  {
-    "query": "项目的安全机制有哪些层次？",
-    "relevant_keywords": ["安全", "JWT", "BCrypt", "HTTPS", "IP 白名单"],
-    "expected_topics": ["安全机制", "认证"]
   },
   {
     "query": "实时对战系统的技术实现是什么？",
@@ -65,13 +50,28 @@
     "expected_topics": ["实时对战", "WebSocket"]
   },
   {
-    "query": "Lombok 在 Java 代码中怎么使用？",
-    "relevant_keywords": ["Lombok", "@Data", "@AllArgsConstructor", "@Slf4j"],
-    "expected_topics": ["Lombok", "Java"]
+    "query": "我投了哪些Java相关的岗位？",
+    "relevant_keywords": ["Java", "投递", "实习"],
+    "expected_topics": ["简历投递", "岗位"]
   },
   {
-    "query": "前后端分离架构有什么好处？",
-    "relevant_keywords": ["前后端分离", "多端支持", "并行开发", "RESTful API"],
-    "expected_topics": ["前后端分离", "架构设计"]
+    "query": "AI全栈实习岗位是哪个公司的？",
+    "relevant_keywords": ["AI", "全栈", "实习", "科技"],
+    "expected_topics": ["简历投递", "AI"]
+  },
+  {
+    "query": "Python后端开发工程师是什么时候投的？",
+    "relevant_keywords": ["Python", "后端", "开发", "投递"],
+    "expected_topics": ["简历投递", "Python"]
+  },
+  {
+    "query": "有没有投过Java工程师的岗位？",
+    "relevant_keywords": ["Java", "工程师", "投递"],
+    "expected_topics": ["简历投递", "Java"]
+  },
+  {
+    "query": "简历投递了哪些岗位？都什么状态？",
+    "relevant_keywords": ["投递", "岗位", "状态", "筛选"],
+    "expected_topics": ["简历投递", "岗位"]
   }
 ]

@@ -1,13 +1,51 @@
+# ==================== Python ====================
 __pycache__/
 *.py[cod]
+*.egg-info/
+dist/
+build/
+*.log
+
+# ==================== 虚拟环境 ====================
+.venv/
+venv/
+env/
+
+# ==================== IDE / 编辑器 ====================
 .idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ==================== OS ====================
+.DS_Store
+Thumbs.db
+
+# ==================== Django ====================
 db.sqlite3
 media/
 staticfiles/
 static/
+
+# ==================== 环境变量（含密钥） ====================
 *.env
-backend/web/documents/data.txt
-backend/web/documents/lancedb_storage/
-frontend/public/vad/
+
+# ==================== 前端 ====================
+frontend/node_modules/
 frontend/dist/
+frontend/public/vad/
+
+# ==================== 知识库 / 向量数据库 ====================
+backend/web/documents/data.txt
+backend/web/documents/*.md
+backend/web/documents/*.pdf
+backend/web/documents/*.txt
+backend/web/documents/lancedb_storage/
+chroma_data/
+
+# ==================== 评测输出 ====================
+tests/rag_evaluation_report.json
+
+# ==================== 部署脚本（含服务器配置） ====================
 deploy.sh
