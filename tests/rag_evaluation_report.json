@@ -1,230 +1,375 @@
 {
-  "vector_only": {
-    "recall_at_3": 0.8655555555555556,
-    "precision_at_3": 0.7333333333333333,
+  "config": {
+    "vector_recall_k": 10,
+    "final_top_k": 3,
+    "test_count": 30
+  },
+  "summary": {
+    "recall_at_3": 0.8516666666666667,
+    "precision_at_3": 0.788888888888889,
     "mrr": 0.9333333333333333,
-    "hit_rate": 1.0
+    "hit_rate": 0.9333333333333333
   },
-  "vector_plus_rerank": {
-    "recall_at_3": 0.9233333333333333,
-    "precision_at_3": 0.8,
-    "mrr": 1.0,
-    "hit_rate": 1.0
-  },
-  "details": {
-    "vector_only": [
-      {
-        "query": "Spring Boot 在项目中有什么作用？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 0.3333333333333333,
-        "mrr": 0.5,
-        "hit": true
-      },
-      {
-        "query": "项目如何实现用户认证和授权？",
-        "recall_at_3": 0.8,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "WebSocket 在这个项目里用来做什么？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 0.6666666666666666,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "MyBatis-Plus 比原生 MyBatis 有什么优势？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 0.6666666666666666,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "前端为什么选择 Vue 3？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 0.6666666666666666,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "游戏循环是怎么实现的？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 0.6666666666666666,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "微服务架构是怎么设计的？",
-        "recall_at_3": 0.8,
-        "precision_at_3": 0.3333333333333333,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "AI 沙箱系统怎么运行机器人代码？",
-        "recall_at_3": 0.8,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "Canvas 在项目中用来渲染什么？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 0.6666666666666666,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "实时对战系统的技术实现是什么？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 0.6666666666666666,
-        "mrr": 0.5,
-        "hit": true
-      },
-      {
-        "query": "我投了哪些Java相关的岗位？",
-        "recall_at_3": 0.6666666666666666,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "AI全栈实习岗位是哪个公司的？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "Python后端开发工程师是什么时候投的？",
-        "recall_at_3": 0.75,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "有没有投过Java工程师的岗位？",
-        "recall_at_3": 0.6666666666666666,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "简历投递了哪些岗位？都什么状态？",
-        "recall_at_3": 0.5,
-        "precision_at_3": 0.3333333333333333,
-        "mrr": 1.0,
-        "hit": true
-      }
-    ],
-    "vector_plus_rerank": [
-      {
-        "query": "Spring Boot 在项目中有什么作用？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 0.3333333333333333,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "项目如何实现用户认证和授权？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "WebSocket 在这个项目里用来做什么？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "MyBatis-Plus 比原生 MyBatis 有什么优势？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "前端为什么选择 Vue 3？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 0.6666666666666666,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "游戏循环是怎么实现的？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 0.6666666666666666,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "微服务架构是怎么设计的？",
-        "recall_at_3": 0.8,
-        "precision_at_3": 0.3333333333333333,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "AI 沙箱系统怎么运行机器人代码？",
-        "recall_at_3": 0.8,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "Canvas 在项目中用来渲染什么？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "实时对战系统的技术实现是什么？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 0.6666666666666666,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "我投了哪些Java相关的岗位？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "AI全栈实习岗位是哪个公司的？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "Python后端开发工程师是什么时候投的？",
-        "recall_at_3": 0.75,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "有没有投过Java工程师的岗位？",
-        "recall_at_3": 1.0,
-        "precision_at_3": 1.0,
-        "mrr": 1.0,
-        "hit": true
-      },
-      {
-        "query": "简历投递了哪些岗位？都什么状态？",
-        "recall_at_3": 0.5,
-        "precision_at_3": 0.3333333333333333,
-        "mrr": 1.0,
-        "hit": true
-      }
-    ]
-  }
+  "details": [
+    {
+      "query": "Spring Boot 在项目中有什么作用？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "项目如何实现用户认证和授权？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "WebSocket 在这个项目里用来做什么？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "MyBatis-Plus 比原生 MyBatis 有什么优势？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "前端为什么选择 Vue 3？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "游戏循环是怎么实现的？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "微服务架构是怎么设计的？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "AI 沙箱系统怎么运行机器人代码？",
+      "hit": true,
+      "recall_at_3": 0.8,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "Canvas 在项目中用来渲染什么？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "实时对战系统的技术实现是什么？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "我投了哪些Java相关的岗位？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "简历投递.md",
+        "简历投递.md",
+        "简历投递.md"
+      ]
+    },
+    {
+      "query": "AI全栈实习岗位是哪个公司的？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "简历投递.md",
+        "简历投递.md",
+        "简历投递.md"
+      ]
+    },
+    {
+      "query": "Python后端开发工程师是什么时候投的？",
+      "hit": true,
+      "recall_at_3": 0.75,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "简历投递.md",
+        "简历投递.md",
+        "简历投递.md"
+      ]
+    },
+    {
+      "query": "有没有投过Java工程师的岗位？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "简历投递.md",
+        "简历投递.md",
+        "简历投递.md"
+      ]
+    },
+    {
+      "query": "简历投递了哪些岗位？都什么状态？",
+      "hit": true,
+      "recall_at_3": 0.5,
+      "precision_at_3": 0.3333333333333333,
+      "mrr": 1.0,
+      "top_titles": [
+        "简历投递.md",
+        "简历投递.md",
+        "简历投递.md"
+      ]
+    },
+    {
+      "query": "数据库使用了什么技术？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "项目如何部署和运行？",
+      "hit": false,
+      "recall_at_3": 0.0,
+      "precision_at_3": 0.0,
+      "mrr": 0.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "AI 聊天功能是怎么实现的？",
+      "hit": true,
+      "recall_at_3": 0.5,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "前端路由是怎么配置的？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "知识库支持哪些文件格式？",
+      "hit": false,
+      "recall_at_3": 0.0,
+      "precision_at_3": 0.0,
+      "mrr": 0.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "Java 8 的新特性在项目中怎么用的？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "Maven 在项目中怎么管理依赖？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 0.3333333333333333,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "Vuex 在前端用来管理什么状态？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "Ace Editor 在项目里实现什么功能？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "项目的安全机制有哪些？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "游戏匹配系统是怎么工作的？",
+      "hit": true,
+      "recall_at_3": 0.25,
+      "precision_at_3": 0.3333333333333333,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "项目做了哪些性能优化？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    },
+    {
+      "query": "bilibili 投了哪些岗位？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "mrr": 1.0,
+      "top_titles": [
+        "简历投递.md",
+        "King Of Bot.md",
+        "简历投递.md"
+      ]
+    },
+    {
+      "query": "美团的全栈实习岗位什么时候投的？",
+      "hit": true,
+      "recall_at_3": 0.75,
+      "precision_at_3": 1.0,
+      "mrr": 1.0,
+      "top_titles": [
+        "简历投递.md",
+        "简历投递.md",
+        "简历投递.md"
+      ]
+    },
+    {
+      "query": "项目的可扩展性是怎么设计的？",
+      "hit": true,
+      "recall_at_3": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "mrr": 1.0,
+      "top_titles": [
+        "King Of Bot.md",
+        "King Of Bot.md",
+        "King Of Bot.md"
+      ]
+    }
+  ]
 }

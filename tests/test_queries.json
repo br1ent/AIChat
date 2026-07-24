@@ -73,5 +73,80 @@
     "query": "简历投递了哪些岗位？都什么状态？",
     "relevant_keywords": ["投递", "岗位", "状态", "筛选"],
     "expected_topics": ["简历投递", "岗位"]
+  },
+  {
+    "query": "数据库使用了什么技术？",
+    "relevant_keywords": ["MySQL", "Redis", "数据库"],
+    "expected_topics": ["数据库", "MySQL", "Redis"]
+  },
+  {
+    "query": "项目如何部署和运行？",
+    "relevant_keywords": ["Docker", "部署", "docker-compose"],
+    "expected_topics": ["部署", "Docker"]
+  },
+  {
+    "query": "AI 聊天功能是怎么实现的？",
+    "relevant_keywords": ["AI", "聊天", "大模型", "对话"],
+    "expected_topics": ["AI 聊天", "对话系统"]
+  },
+  {
+    "query": "前端路由是怎么配置的？",
+    "relevant_keywords": ["Vue Router", "路由", "导航"],
+    "expected_topics": ["前端路由", "Vue Router"]
+  },
+  {
+    "query": "知识库支持哪些文件格式？",
+    "relevant_keywords": ["知识库", "文档", "格式", "导入"],
+    "expected_topics": ["知识库", "文档导入"]
+  },
+  {
+    "query": "Java 8 的新特性在项目中怎么用的？",
+    "relevant_keywords": ["Java 8", "Lambda", "Stream API", "Optional"],
+    "expected_topics": ["后端技术栈", "Java 8"]
+  },
+  {
+    "query": "Maven 在项目中怎么管理依赖？",
+    "relevant_keywords": ["Maven", "依赖管理", "多模块", "POM"],
+    "expected_topics": ["Maven", "构建工具"]
+  },
+  {
+    "query": "Vuex 在前端用来管理什么状态？",
+    "relevant_keywords": ["Vuex", "状态管理", "store", "module"],
+    "expected_topics": ["前端技术栈", "Vuex"]
+  },
+  {
+    "query": "Ace Editor 在项目里实现什么功能？",
+    "relevant_keywords": ["Ace Editor", "代码编辑器", "语法高亮"],
+    "expected_topics": ["前端技术栈", "Ace Editor"]
+  },
+  {
+    "query": "项目的安全机制有哪些？",
+    "relevant_keywords": ["安全", "加密", "HTTPS", "BCrypt", "CSRF"],
+    "expected_topics": ["安全机制", "加密"]
+  },
+  {
+    "query": "游戏匹配系统是怎么工作的？",
+    "relevant_keywords": ["匹配", "天梯分", "Matching", "评分"],
+    "expected_topics": ["匹配系统", "Matching Service"]
+  },
+  {
+    "query": "项目做了哪些性能优化？",
+    "relevant_keywords": ["性能优化", "连接池", "缓存", "懒加载", "异步"],
+    "expected_topics": ["性能优化", "缓存"]
+  },
+  {
+    "query": "bilibili 投了哪些岗位？",
+    "relevant_keywords": ["bilibili", "实习生", "投递"],
+    "expected_topics": ["简历投递", "bilibili"]
+  },
+  {
+    "query": "美团的全栈实习岗位什么时候投的？",
+    "relevant_keywords": ["美团", "全栈", "实习", "投递"],
+    "expected_topics": ["简历投递", "美团"]
+  },
+  {
+    "query": "项目的可扩展性是怎么设计的？",
+    "relevant_keywords": ["可扩展性", "水平扩展", "负载均衡", "读写分离"],
+    "expected_topics": ["可扩展性", "架构设计"]
   }
 ]

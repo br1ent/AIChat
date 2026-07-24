@@ -3,9 +3,9 @@ import os
 from openai import OpenAI
 
 
-RERANK_MODEL = os.getenv("RERANK_MODEL", "qwen3-rerank")
-RERANK_TOP_N = int(os.getenv("RERANK_TOP_N", "3"))
-BASE_URL = os.getenv("BASE_URL", "")
+RERANK_MODEL = os.getenv("RERANK_MODEL")
+RERANK_TOP_N = int(os.getenv("RERANK_TOP_N"))
+BASE_URL = os.getenv("BASE_URL")
 
 _client = None
 

@@ -90,22 +90,31 @@ python -m tests.evaluate_rag
 
 | 指标 | 说明 | 达标值 |
 |------|------|--------|
-| Recall@3 | Top-3 结果中包含相关文档的比例 | ≥ 85% |
-| Recall@5 | Top-5 结果中包含相关文档的比例 | ≥ 90% |
+| Recall@3 | Top-3 结果中关键词覆盖率 | ≥ 85% |
 | Precision@3 | Top-3 结果中相关文档的占比 | 参考 |
 | MRR | 第一个相关文档的平均倒数排名 | ≥ 0.8 |
 | Hit Rate | 至少命中一个相关文档的查询比例 | ≥ 90% |
 
+### 检索管线
+
+```
+用户查询 → 向量召回 10 个候选 → Rerank 重排序 → top-3 → 计算指标
+```
+
 ### 测试数据集
 
-`test_queries.json` 包含 15 个测试查询，覆盖以下主题：
+`test_queries.json` 包含 20 个测试查询，覆盖以下主题：
 
-- 后端技术栈 (Java, Spring Boot, MyBatis)
+- 后端技术栈 (Spring Boot, MyBatis-Plus)
 - 用户认证 (JWT, Spring Security)
-- 前端技术栈 (Vue 3, Vuex)
-- 实时通信 (WebSocket)
-- 数据库 (MySQL)
-- 架构设计 (微服务)
+- 前端技术栈 (Vue 3, Vue Router)
+- 实时通信 (WebSocket, 实时对战)
+- 游戏系统 (Canvas, 游戏循环)
+- 架构设计 (微服务, AI沙箱)
+- 部署运维 (Docker, 项目部署)
+- AI 功能 (AI聊天, AI沙箱)
+- 简历投递 (岗位, 投递状态)
+- 知识库管理 (文档格式, 导入)
 
 ### 输出
 
