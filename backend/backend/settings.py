@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-=$)7fmrvnpez%v+=#o4_@o*#du*ir(dsa!g!-hlc3l)#jfh91n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'xbrent.top', 'www.xbrent.top']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'app8109.acapp.acwing.com.cn']
 
 # Application definition
 
@@ -137,7 +137,7 @@ else:
 if DEBUG:
     MEDIA_URL = 'http://127.0.0.1:8000/media/'
 else:
-    MEDIA_URL = 'https://xbrent.top/media/'
+    MEDIA_URL = 'https://app8109.acapp.acwing.com.cn/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -167,15 +167,11 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost",
-    "https://localhost",
-    "https://xbrent.top",
-    "https://www.xbrent.top",
+    "https://app8109.acapp.acwing.com.cn",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost",
-    "https://localhost",
-    "https://xbrent.top",
-    "https://www.xbrent.top",
+    "https://app8109.acapp.acwing.com.cn",
 ]

@@ -9,20 +9,6 @@
         An AI-powered chat platform for immersive conversations.<br>
         一个可以与AI角色聊天的网站
       </p>
-      <p class="text-sm text-gray-500 mt-4">
-        © 2026–现在 AI Chat. All rights reserved. 版权所有
-      </p>
-      <div class="flex items-center justify-center gap-1 mt-1">
-        <img :src="beianImg" alt="公安备案" class="w-4 h-4">
-        <a class="link link-hover text-gray-500 text-sm"
-           href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44530202000174"
-           target="_blank">
-          粤公网安备44530202000174号
-        </a>
-      </div>
-      <p class="text-sm text-gray-500 mt-1">
-        ICP证：<a class="link link-hover text-gray-500" href="https://beian.miit.gov.cn/" target="_blank">粤ICP备2026068482号-1</a>
-      </p>
       <div class="border-t border-gray-600 max-w-md mx-auto my-4"></div>
       <div class="flex justify-center gap-6 text-sm text-gray-500">
         <span class="flex items-center gap-2">
@@ -31,7 +17,7 @@
         </span>
         <span class="flex items-center gap-2">
           <GitHubIcon class="w-5 h-5"/>
-          <a href="https://github.com/br1ent/AIFriends" target="_blank" class="link link-hover text-gray-500">GitHub</a>
+          <a href="https://github.com/br1ent/AIChat" target="_blank" class="link link-hover text-gray-500">GitHub</a>
         </span>
       </div>
     </div>
@@ -46,7 +32,6 @@ import {useUserStore} from "@/stores/user.js";
 import {useRoute, useRouter} from "vue-router";
 import EmailIcon from "@/icon/EmailIcon.vue";
 import GitHubIcon from "@/icon/GitHubIcon.vue";
-import beianImg from "@/assets/beian.png";
 
 
 const user = useUserStore();
