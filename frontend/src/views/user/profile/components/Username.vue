@@ -1,6 +1,5 @@
 <script setup>
 import {ref, watch} from "vue";
-import {TEXT_INPUT_DISABLED} from "@/js/config/config.js";
 
 const props = defineProps(["username"]);
 const myUsername = ref(props.username);

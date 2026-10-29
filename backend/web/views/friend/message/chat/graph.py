@@ -73,7 +73,7 @@ class ChatGraph:
         tools = [get_time, search_knowledge_base]
 
         llm = ChatOpenAI(
-            model='deepseek-v4-flash',
+            model='deepseek-v4.1-flash-1017',
             api_key=os.getenv('API_KEY'),
             base_url=os.getenv('API_BASE'),
             streaming=True,

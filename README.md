@@ -8,9 +8,9 @@ AI Chat 是一个前后端分离的 AI 角色互动平台。用户可以注册�
 - **角色广场与搜索**：首页按分页加载公开角色，支持按角色名、简介和作者搜索。
 - **好友式聊天体验**：用户可以把角色添加为好友，进入沉浸式聊天窗口。
 - **流式 AI 回复**：后端通过 SSE 返回大模型生成结果，前端边生成边展示。
-- **实时语音交互**：浏览器端 VAD 语音活动检测 → 后端 ASR 语音识别 → TTS 语音合成 → 前端流式音频播放。
+- **实时语音交互**：浏览器端 VAD 语音活动检测 → 后端 ASR 语音识别 → TTS 语音合成 → 前端流式音频播放，支持角色音色选择与声音复刻。
 - **长期记忆机制**：聊天后自动总结最近对话并更新好友记忆，让角色能记住用户偏好和上下文。
-- **RAG 知识库检索**：使用 LanceDB 构建向量知识库，AI 可通过工具调用检索相关内容。
+- **RAG 知识库检索**：使用 LanceDB 构建向量知识库，检索后 ReRank 精排，AI 可通过工具调用获取相关内容。
 - **JWT 鉴权体系**：使用 access token + refresh token，前端封装自动刷新逻辑。
 - **个人资料管理**：支持用户头像、简介和账号信息维护。
 - **删除确认**：移除角色或好友时弹出模态框二次确认，防止误操作。
@@ -31,9 +31,8 @@ python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r ../requirements.txt
 
-# 配置环境变量（参考 .env.example）
-cp .env.example .env
-# 编辑 .env，填入 API_KEY 等必要配置
+# 创建环境变量文件
+# 在 backend/.env 中填入 API_KEY 等必要配置（见下方「环境变量」）
 
 python manage.py migrate
 python manage.py runserver 127.0.0.1:8000
@@ -247,7 +246,7 @@ backend/web/views/friend/message/chat/chat.py
 
 ### 7. 长期记忆
 
-每次聊天结束后，后端会根据最近对话和已有记忆调用大模型生成新的长期记忆，并保存到 Friend 表中。
+每累计 10 条聊天消息后，后端会根据最近对话和已有记忆调用大模型生成新的长期记忆，并保存到 Friend 表中。
 
 主要文件：
 
@@ -266,12 +265,14 @@ backend/web/views/friend/message/memory/graph.py
 - 调用 embedding 模型生成向量
 - 写入 LanceDB
 - AI 对话时通过工具函数检索相关片段
+- 检索后使用 ReRank 模型二次精排，提升召回质量
 
 主要文件：
 
 ```text
 backend/web/documents/utils/insert_documents.py
 backend/web/documents/utils/custom_embeddings.py
+backend/web/documents/utils/reranker.py
 backend/web/views/friend/message/chat/graph.py
 ```
 
@@ -315,7 +316,7 @@ backend/web/views/friend/message/chat/graph.py
 ## 项目结构
 
 ```text
-AIFriends/
+AIChat/
 ├── backend/
 │   ├── backend/                 # Django 项目配置
 │   │   ├── settings.py          # 配置（DEBUG、数据库、JWT、CORS）
@@ -326,6 +327,7 @@ AIFriends/
 │   │   ├── models/              # 数据模型
 │   │   │   ├── character.py     # 角色模型
 │   │   │   ├── friend.py        # 好友 / 消息模型
+│   │   │   ├── knowledge.py     # 知识库文档模型
 │   │   │   └── user.py          # 用户扩展模型
 │   │   ├── views/               # API 视图
 │   │   │   ├── create/          # 角色 CRUD + 音色
@@ -351,14 +353,20 @@ AIFriends/
 │   │   │   ├── homepage/        # 首页
 │   │   │   ├── friend/          # 好友列表
 │   │   │   ├── create/          # 创建 / 编辑角色
-│   │   │   └── user/            # 登录 / 注册 / 个人空间
+│   │   │   ├── user/            # 登录 / 注册 / 个人空间 / 资料
+│   │   │   └── error/           # 404 页面
 │   │   ├── router/              # 前端路由
 │   │   ├── stores/              # Pinia 状态管理
 │   │   └── js/                  # API / 配置 / HTTP 工具
 │   ├── public/vad/              # VAD 模型文件（gitignored）
 │   ├── package.json
 │   └── vite.config.js           # 构建输出到 ../backend/static/frontend
-├── .env.example                 # 环境变量模板
+├── tests/                       # RAG 评估与负载测试脚本
+│   ├── evaluate_rag.py          # RAG 检索效果评估
+│   ├── loadtest.js              # 负载测试（k6）
+│   └── locust_test.py           # 负载测试（Locust）
+├── 项目背景.md                   # 项目背景与开发历程
+├── 技术实现亮点.md               # 技术亮点详解
 ├── deploy.sh                    # 一键部署脚本
 ├── requirements.txt             # Python 依赖
 └── README.md
